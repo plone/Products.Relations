@@ -1,0 +1,31 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five">
+
+  <include file="profiles.zcml" />
+
+  <five:deprecatedManageAddDelete
+      class=".components.types.PortalTypeConstraint" />
+
+  <five:deprecatedManageAddDelete
+      class=".components.types.InterfaceConstraint" />
+
+  <five:deprecatedManageAddDelete
+      class=".components.inverse.InverseImplicator" />
+
+  <five:deprecatedManageAddDelete
+      class=".components.cardinality.CardinalityConstraint" />
+
+  <five:deprecatedManageAddDelete
+      class=".ruleset.Library" />
+
+  <five:deprecatedManageAddDelete
+      class=".ruleset.Ruleset" />
+
+  <five:deprecatedManageAddDelete
+      class=".ruleset.RulesetCollection" />
+
+  <five:deprecatedManageAddDelete
+      class=".components.contentreference.ContentReferenceFinalizer" />
+
+</configure> 

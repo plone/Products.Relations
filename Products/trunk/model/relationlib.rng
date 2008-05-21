@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+    xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+    datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <define name="RelationsLibrary">
+        <element name="RelationsLibrary">
+            <optional>
+                <attribute name="id"/>
+            </optional>
+            <optional>
+                <attribute name="uid"/>
+            </optional>
+            <optional>
+                <attribute name="title"/>
+            </optional>
+            <oneOrMore>
+                <choice>
+                    <ref name="RulesetCollection"/>
+                    <ref name="Ruleset"/>
+                </choice>
+            </oneOrMore>
+        </element>
+    </define>
+    <define name="RulesetCollection">
+        <element name="RulesetCollection">
+            <attribute name="id"/>
+            <optional>
+                <attribute name="uid"/>
+            </optional>
+            <optional>
+                <attribute name="title"/>
+            </optional>
+            <oneOrMore>
+                <ref name="Ruleset"/>
+            </oneOrMore>
+        </element>
+    </define>
+    <define name="Ruleset">
+        <element name="Ruleset">
+            <attribute name="id"/>
+            <optional>
+                <attribute name="uid"/>
+            </optional>
+            <optional>
+                <attribute name="title"/>
+            </optional>
+            <optional>
+                <element name="about">
+                    <data type="string"/>
+                </element>
+            </optional>
+            <oneOrMore>
+                <choice>
+                    <element name="CardinalityConstraint">
+                        <attribute name="id"/>
+                        <optional>
+                            <attribute name="uid"/>
+                        </optional>
+                        <optional>
+                            <attribute name="title"/>
+                        </optional>
+                        <optional>
+                            <element name="minTargetCardinality">
+                                <data type="integer"/>
+                            </element>
+                        </optional>
+                        <optional>
+                            <element name="maxTargetCardinality">
+                                <data type="integer"/>
+                            </element>
+                        </optional>
+                    </element>
+                    <element name="TypeConstraint">
+                        <attribute name="id"/>
+                        <optional>
+                            <attribute name="uid"/>
+                        </optional>
+                        <optional>
+                            <attribute name="title"/>
+                        </optional>
+                        <zeroOrMore>
+                            <choice>
+                                <element name="allowedSourceType">
+                                    <data type="string"/>
+                                </element>
+                                <element name="allowedTargetType">
+                                    <data type="string"/>
+                                </element>
+                            </choice>
+                        </zeroOrMore>
+                    </element>
+                    <element name="InterfaceConstraint">
+                        <attribute name="id"/>
+                        <optional>
+                            <attribute name="uid"/>
+                        </optional>
+                        <optional>
+                            <attribute name="title"/>
+                        </optional>
+                        <oneOrMore>
+                            <choice>
+                                <element name="allowedSourceInterface">
+                                    <data type="string"/>
+                                </element>
+                                <element name="allowedTargetInterface">
+                                    <data type="string"/>
+                                </element>
+                            </choice>
+                        </oneOrMore>
+                    </element>
+                    <element name="InverseImplicator">
+                        <attribute name="id"/>
+                        <optional>
+                            <attribute name="uid"/>
+                        </optional>
+                        <optional>
+                            <attribute name="title"/>
+                        </optional>
+                        <element name="inverseRuleset">
+                            <attribute name="uidref"/>
+                        </element>
+                    </element>
+                    <element name="ContentReference">
+                        <attribute name="id"/>
+                        <optional>
+                            <attribute name="uid"/>
+                        </optional>
+                        <optional>
+                            <attribute name="title"/>
+                        </optional>
+                        <element name="portalType">
+                            <data type="string"/>
+                        </element>
+                        <element name="shareWithInverse">
+                            <data type="boolean"/>
+                        </element>
+                        <optional>
+                        <element name="primary">
+                            <data type="boolean"></data>
+                        </element>
+                        </optional>
+                    </element>
+                </choice>
+            </oneOrMore>
+        </element>
+    </define>
+    <start>
+        <ref name="RelationsLibrary"/>
+    </start>
+</grammar>

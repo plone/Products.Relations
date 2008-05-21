@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object name="portal_skins">
+ <object name="relations" meta_type="Filesystem Directory View"
+    directory="Products.Relations:skins/relations"/>
+ <object name="relations_images" meta_type="Filesystem Directory View"
+    directory="Products.Relations:skins/relations_images"/>
+ <skin-path name="*">
+  <layer name="relations" insert-after="custom"/>
+  <layer name="relations_images" insert-after="relations"/>
+ </skin-path>
+</object>

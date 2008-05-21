@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<kupu-settings>
+  <config>
+    Is this really needed?
+  </config>
+  <resource id="containsanchors" mode="blacklist">
+    <type>Cardinality Constraint</type>
+    <type>Content Reference</type>
+    <type>Interface Constraint</type>
+    <type>Inverse Implicator</type>
+    <type>Relations Library</type>
+    <type>Ruleset</type>
+    <type>Ruleset Collection</type>
+    <type>Type Constraint</type>
+  </resource>
+  <resource id="linkable" mode="blacklist">
+    <type>Cardinality Constraint</type>
+    <type>Content Reference</type>
+    <type>Interface Constraint</type>
+    <type>Inverse Implicator</type>
+    <type>Relations Library</type>
+    <type>Ruleset</type>
+    <type>Ruleset Collection</type>
+    <type>Type Constraint</type>
+  </resource>
+</kupu-settings>

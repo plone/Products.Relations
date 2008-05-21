@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="file:relationlib.rng" type="xml"?>
+<RelationsLibrary>
+    <RulesetCollection id="Project">
+        <Ruleset id="bliff" title="PersProj">
+            <CardinalityConstraint id="q1">
+                <minTargetCardinality>1</minTargetCardinality>
+                <maxTargetCardinality>2</maxTargetCardinality>
+            </CardinalityConstraint>
+            <TypeConstraint id="pt1">
+                <allowedSourceType>Person</allowedSourceType>
+                <allowedTargetType>Project</allowedTargetType>
+            </TypeConstraint>
+            <InterfaceConstraint id="ic1">
+                <allowedSourceInterface> adadad </allowedSourceInterface>
+            </InterfaceConstraint>
+            <ContentReference id="ic1">
+                <portalType> uuu </portalType>
+                <shareWithInverse>0</shareWithInverse>
+                <primary>1</primary>
+            </ContentReference>
+            <InverseImplicator id="inverse">
+                <inverseRuleset uidref="bla"></inverseRuleset>
+            </InverseImplicator>
+        </Ruleset>
+    </RulesetCollection>
+</RelationsLibrary>

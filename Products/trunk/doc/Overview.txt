@@ -1,0 +1,252 @@
+====================================
+Relations: Developer's Documentation
+====================================
+
+This document gives a brief overview over Relations for the developer.
+See the `README.txt <../README.txt>`_ file for information for the
+user of Relations.
+
+.. contents::
+
+The model
+=========
+
+Relations allows for component-wise control of validation, creation
+and lifetime of Archetypes references.  It allows you to build
+reference types, which are called *Rulesets*.
+
+Rulesets are composed of rules, which are of type *IRule*.  Subtypes
+of IRule are:
+
+    IVocabularyProvider
+      Vocabulary providers are responsible for building vocabularies,
+      from which the user chooses the target object of a reference.
+      Several vocabulary providers form a chain, so that a second
+      provider can filter or add to the results of a first provider.
+
+      Module *components.types* contains two IVocabularyProviders.
+
+    IPrimaryImplicator
+      The primary implicator is responsible for establishing a
+      reference in the underlying Archetypes Reference Engine.  Only
+      one primary implicator may be used in a ruleset.
+
+      If a ruleset contains no primary implicator, it uses 
+      *ruleset.DefaultPrimaryImplicator*.
+
+    IImplicator
+      Implicators create additional references.  For instance, a
+      ruleset "is Child Of" may imply a reference "is Parent Of", for
+      which the source and target objects are inverted.  The
+      *InverseImplicator* of *components.inverse* is an implementation
+      that does exactly this.
+
+    IValidator
+      These validate references when they're created and deleted.
+      *components.cardinality.CardinalityConstraint* is a validator.
+    
+    IFinalizer
+      Finalizers define things that happen after references have been
+      established and validated, or after they've been deleted and
+      that's valid.
+
+    IReferenceLayerProvider
+      ReferenceLayerProviders allow components to add behaviour to the
+      Archetypes Reference class hooks *addHook*, *delHook*,
+      *beforeTargetDeleteInformSource* and
+      *beforeSourceDeleteInformTarget*.
+
+      Only by being an *IReferenceLayerProvider* can the
+      CardinalityConstraint prevent target objects to be deleted when
+      they're actually required for the constraint to be fulfilled.
+
+    IReferenceActionProvider
+      These provide actions for references.  The
+      *ContentReferenceFinalizer* in *components.contentreference*
+      implements IReferenceActionProvider.
+      
+A ruleset may contain any number of rules.  The *RulesetCollection*
+allows you to group rulesets into folders.
+
+How do I create/delete a reference through Relations?
+=====================================================
+
+One function is responsible for this and it lives in
+*processor.process*.  How to call it is explained in
+*interfaces.IReferenceConnectionProcessor*.
+
+This is how rules play together to create or delete references:
+
+- References are created and deleted, according to the arguments
+  *connect* and *disconnect* to process.  This is the job of
+  IPrimaryImplicators and IImplicators.
+
+- IValidators check the validity of created and deleted references.
+
+- After references have been created and validated, Finalizers are
+  processed.
+
+You can still create references through the Archetypes API.  However,
+no matter what the *relationship* attribute of a reference is,
+Relations will never kick in.  (Note that *relationship* attributes of
+references created by Relations are equal to the ID attribute of the
+ruleset which created them.)
+
+For all other things besides creating and deleting a reference, you're
+safe using the Archetypes API.
+
+Examples
+--------
+
+Let's assume we have a ruleset called "IsParentOf".
+
+  >>> from Products.CMFCore.utils import getToolByName
+  >>> portal = self.portal
+  >>> tool = getToolByName(portal, 'relations_library')
+  >>> ruleset = tool.getRuleset("IsParentOf")
+
+In our folder we have 'alfred' and 'manfred', both referenceable objects:
+
+  >>> folder = self.folder
+  >>> alfred, manfred = folder['alfred'], folder['manfred']
+  >>> assert(alfred.isReferenceable)
+
+Now let's create a reference between Alfred and Manfred; we want
+Manfred to be "IsParentOf" Alfred.  We will need the *process*
+function here:
+
+  >>> from Products.Relations.processor import process
+
+*process* takes a context argument, a list of triples to connect and a
+list of triples to disconnect (both lists default to the empty list).
+Let's build the connect triple:
+
+  >>> ruleset.getId()
+  'IsParentOf'
+  >>> triple = (manfred.UID(), alfred.UID(), ruleset.getId())
+
+We now call *process*.
+
+  >>> process(portal, connect=(triple,))
+  {}
+
+We can now use the Archetypes API to find that Manfred is a parent of
+Alfred:
+
+  >>> manfred.getRefs("IsParentOf")[0].getId()
+  'alfred'
+
+Deleting a reference works quite similiar:
+
+  >>> process(portal, disconnect=(triple,))
+  {}
+  >>> manfred.getRefs("IsParentOf")
+  []
+
+
+How do I create rulesets and assign rules in Python?
+====================================================
+
+To create a ruleset, we need to call *invokeFactory* on the Relations
+tool.  We need to be portal administrator to do that:
+
+  >>> self.loginAsPortalOwner()
+  >>> from Products.CMFCore.utils import getToolByName
+  >>> tool = getToolByName(portal, 'relations_library')
+  >>> tool.invokeFactory("Ruleset", "MyRuleset")
+  'MyRuleset'
+
+At this point, the ruleset has already registered itself:
+
+  >>> tool.getRuleset("MyRuleset")
+  <Ruleset ...>
+
+While we're at it, let's create a ruleset inside a ruleset collection.
+
+  >>> tool.invokeFactory("Ruleset Collection", "MySpecialRulesets")
+  'MySpecialRulesets'
+  >>> tool.MySpecialRulesets.invokeFactory("Ruleset", "ASpecialRuleset")
+  'ASpecialRuleset'
+  >>> 'ASpecialRuleset' in [rs.getId() for rs in tool.getRulesets()]
+  True
+
+Analogical, assigning rules (i.e. components) to rulesets means
+creating rules objects inside rulesets:
+
+  >>> ruleset = tool.getRuleset("MyRuleset")
+  >>> ruleset.invokeFactory("Cardinality Constraint", "cc")
+  'cc'
+
+Cardinality Constraint is a rule that is part of Relations.  We can
+use it to control how many targets a reference of a given type may
+have.  We want only two or more targets to be valid.  That's how to do
+it:
+
+  >>> ruleset.cc.setMinTargetCardinality(2)
+  >>> ruleset.cc.setMaxTargetCardinality(0) # 0 is also the default value
+
+Let's try to create a reference with "MyRuleset" that has only one
+target and see how it fails now:
+
+  >>> from Products.Relations.exception import ValidationException
+  >>> triple = (alfred.UID(), manfred.UID(), "MyRuleset")
+  >>> try:
+  ...     process(portal, connect=(triple,))
+  ... except ValidationException, e:
+  ...     pass
+  ...
+
+  >>> print e[0]
+  Too few targets (1)... 
+
+  >>> alfred.getRefs("MyRuleset")
+  []
+
+Two targets are OK.  For the lack of a third object, we connect Alfred
+with himself:
+
+  >>> triple2 = (alfred.UID(), alfred.UID(), "MyRuleset")
+  >>> process(portal, connect=(triple, triple2))
+  {}
+
+
+How do I export and import my rules?
+====================================
+ 
+The complete Ruleset Library can be exported as XML, the
+ruleset_library object provides a method for that task. This can be
+done by a simple API call:
+
+  >>> xml = portal.relations_library.exportXML()
+  >>> print xml
+  <?xml version="1.0" ?>
+  <RelationsLibrary id="relations_library" title="Relations Library" uid="...">
+  <Ruleset id="MyRuleset" title="" uid="...">
+  ...
+  <CardinalityConstraint id="cc" ...>
+  ...
+  </CardinalityConstraint>
+  </Ruleset>
+  ...
+  </RelationsLibrary>
+
+In analogy you can import an XML string into the relations_library
+like that:
+
+  >>> portal.relations_library.importXML(xml)
+
+Existing rulesets will be overwritten while existing Rulesets that are
+not defined in the XML will be preserved.
+
+
+How do I add my own rules?
+==========================
+
+All rules implement IRule in module interfaces.  The *components*
+module contains a number of IRules that come with Relations.  Users
+are encouraged to make use of the rule interfaces to add their own,
+customized behaviour to their types of references.
+
+Making your own rules available for use through the API and TTW is as
+simple as implementing a rule interface and registering your Archetype
+through function *registerType*.

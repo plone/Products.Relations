@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master">
+
+  <body>
+
+    <div metal:fill-slot="main">
+
+        <h1>Relations: Import</h1>
+        <p>
+        TODO
+        <form>
+            <input type="file" name="importfile" /><br>         
+            <input type="submit" name="Import" />         
+        </form>
+        </p>
+
+        <h1>Relations: Export</h1>
+
+        <a href="#" tal:attributes="href string:${context/absolute_url}/exportXML">Export all rulesets</a>
+        
+
+    </div>
+  </body>
+</html> 

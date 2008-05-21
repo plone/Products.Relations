@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master">
+
+  <body>
+
+    <div metal:fill-slot="main">
+
+      <h1>Relations: Overview</h1>
+
+      <div id="description">
+        This area shows you existing references.  You may also want to
+        <a href="" tal:attributes="href string:${here/absolute_url}/relations_adddelete">add and delete</a>
+        references.
+      </div>
+
+      <div tal:define="global lastId nothing">
+        <tal:block repeat="info here/relations_listrefs">
+          <h2 tal:define="ruleset_id info/ruleset/getId"
+              tal:condition="python:lastId != ruleset_id">
+            <tal:block tal:define="global lastId ruleset_id"/>
+            <span tal:replace="info/ruleset/Title" />
+          </h2>
+
+          <div>
+            <a href=""
+	       tal:define="ref info/reference"
+	       tal:content="ref/targetTitle"
+	       tal:attributes="href python:ref.getTargetObject().absolute_url()">
+	      Title of target object
+	    </a>
+
+            <span tal:repeat="action info/actions">
+              <a href="" tal:attributes="href action/url">
+
+                <tal:condition condition="action/icon">
+                  <img src="" alt=""
+                       tal:attributes="src string:${utool}/${action/icon};
+                                       alt action/title"
+                       />
+                </tal:condition>
+
+                <span tal:condition="not:action/icon"
+                      tal:replace="action/title">
+                  Title of reference action.
+                </span>
+
+              </a>
+            </span>
+          </div>
+
+        </tal:block>
+      </div>
+
+    </div>
+
+  </body>
+
+</html>

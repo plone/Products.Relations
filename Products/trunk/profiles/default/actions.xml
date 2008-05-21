@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<object name="portal_actions">
+ <object name="object" meta_type="CMF Action Category">
+  <object name="relations" meta_type="CMF Action">
+   <property name="title">Relations</property>
+   <property name="description"></property>
+   <property name="url_expr">string:$object_url/relations_form</property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">python:object.relations_adddelete_vocab(test_only=1)</property>
+   <property name="permissions">
+    <element value="Relations: Manage content relations"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+ </object>
+</object>

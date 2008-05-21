@@ -1,0 +1,84 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master">
+
+  <body>
+
+    <div metal:fill-slot="main"
+         tal:define="errors options/state/getErrors;
+                     vocabulary here/relations_adddelete_vocab;
+                     all_fields python:[];">
+
+      <h1>Add and Delete References for <span tal:replace="here/title_or_id" /></h1>
+      <a href=""
+	 class="link-parent"
+	 tal:attributes="href string:${here/absolute_url}/relations_form">
+	Back to Relations Overview
+      </a>
+
+
+      <form action="."
+            method="post"
+            tal:attributes="action string:${here/absolute_url}/${template/id}">
+	<fieldset>
+        <tal:repeat repeat="entry vocabulary">
+           <div class="field"
+                tal:define="field_id python:'relations_%s' % entry['id'];
+                            error python:errors.get(field_id, None);"
+                tal:attributes="class python:error and 'field error' or 'field'">
+             <label for="field_id"
+                    tal:define="dummy python:all_fields.append(field_id)"
+                    tal:attributes="for field_id"
+                    tal:content="entry/title">
+               Ruleset title
+	     </label>
+
+             <div tal:content="error">Validation error output</div>
+
+             <select multiple="multiple"
+                     tal:attributes="name string:${field_id}:list;
+                                     id field_id;
+                                     tabindex tabindex/next">
+               <tal:repeat repeat="item entry/tuples">
+
+                 <option tal:define="brain python:item[0];
+                                     selected python:item[1]"
+                         tal:attributes="value brain/UID;
+                                         selected python:selected and 'selected' or None"
+                         tal:content="python:'%r at %s' % (brain.Title or brain.id, brain.getPath())">
+                   Target Title
+		 </option>
+
+	       </tal:repeat>
+             </select>
+
+           </div>
+	</tal:repeat>
+	</fieldset>
+
+        <div class="formControls">
+          <input class="context"
+                 type="submit"
+                 name="form.button.Save"
+                 value="Save"
+                 tal:attributes="tabindex tabindex/next" />
+
+          <input class="standalone"
+                 type="submit"
+                 name="form.button.Cancel"
+                 value="Cancel"
+                 i18n:attributes="value"
+                 tal:attributes="tabindex tabindex/next" />
+        </div>
+
+        <input type="hidden" name="all_fields:list" value=""
+               tal:repeat="field_id all_fields"
+               tal:attributes="value field_id" />
+        <input type="hidden" name="form.submitted" value="1" />
+      </form>
+
+    </div>
+
+  </body>
+
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <meta>
+        <lastOpenedFiles>
+            <file name="relationlib.rng"/>
+            <file name="sample_ruleset.xml"/>
+            <file focused="true" name="file:/home/phil/zopes/z50880/Products/atct/relations.xml"/>
+        </lastOpenedFiles>
+    </meta>
+    <projectTree name="Relations.xpr">
+        <file name="relationlib.rng"/>
+        <file name="sample_ruleset.xml"/>
+    </projectTree>
+</project>

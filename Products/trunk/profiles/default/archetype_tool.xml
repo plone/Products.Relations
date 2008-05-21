@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<archetypetool>
+ <catalogmap>
+  <type portal_type="CardinalityConstraint">
+   <catalog value="portal_catalog"/>
+  </type>
+  <type portal_type="Library">
+   <catalog value="portal_catalog"/>
+  </type>
+  <type portal_type="ContentReferenceFinalizer">
+   <catalog value="portal_catalog"/>
+  </type>
+  <type portal_type="InterfaceConstraint">
+   <catalog value="portal_catalog"/>
+  </type>
+  <type portal_type="RulesetCollection">
+   <catalog value="portal_catalog"/>
+  </type>
+  <type portal_type="InverseImplicator">
+   <catalog value="portal_catalog"/>
+  </type>
+  <type portal_type="Ruleset">
+   <catalog value="portal_catalog"/>
+  </type>
+  <type portal_type="PortalTypeConstraint">
+   <catalog value="portal_catalog"/>
+  </type>
+ </catalogmap>
+</archetypetool>

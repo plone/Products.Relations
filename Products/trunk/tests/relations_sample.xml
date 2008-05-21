@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<RelationsLibrary>
+	<RulesetCollection id="RelationTest">
+		<Ruleset id="document_files" uid="I11701fdm103a4c647c5mm7f25">
+			<TypeConstraint id="type_constraint">
+				<allowedSourceType>
+					Document
+				</allowedSourceType>
+				<allowedTargetType>
+					File
+				</allowedTargetType>
+			</TypeConstraint>
+			<CardinalityConstraint id="cardinality">
+				<maxTargetCardinality>
+					3
+				</maxTargetCardinality>
+			</CardinalityConstraint>
+			<InverseImplicator id="inverse_relation">
+				<inverseRuleset uidref="document_files_inverse"/>
+			</InverseImplicator>
+		</Ruleset>
+		<Ruleset id="document_files_inverse" uid="document_files_inverse">
+			<TypeConstraint id="type_constraint">
+				<allowedSourceType>
+					File
+				</allowedSourceType>
+				<allowedTargetType>
+					Document
+				</allowedTargetType>
+			</TypeConstraint>
+			<CardinalityConstraint id="cardinality">
+				<maxTargetCardinality>
+					2
+				</maxTargetCardinality>
+			</CardinalityConstraint>
+			<InverseImplicator id="inverse_relation">
+				<inverseRuleset uidref="I11701fdm103a4c647c5mm7f25"/>
+			</InverseImplicator>
+		</Ruleset>
+		<Ruleset id="other_content" uid="I11701fdm103a4c647c5mm7ec2">
+			<TypeConstraint id="type_constraint">
+				<allowedSourceType>
+					Document
+				</allowedSourceType>
+			</TypeConstraint>
+			<InterfaceConstraint id="interface_constraint">
+				<allowedTargetInterface>
+					IATContentType
+				</allowedTargetInterface>
+			</InterfaceConstraint>
+			<CardinalityConstraint id="cardinality">
+				<maxTargetCardinality>
+					5
+				</maxTargetCardinality>
+			</CardinalityConstraint>
+		</Ruleset>
+	</RulesetCollection>
+</RelationsLibrary>
+

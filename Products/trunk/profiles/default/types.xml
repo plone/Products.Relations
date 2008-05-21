@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<object name="portal_types">
+ <object name="Cardinality Constraint"
+    meta_type="Factory-based Type Information"/>
+ <object name="Content Reference" meta_type="Factory-based Type Information"/>
+ <object name="Interface Constraint"
+    meta_type="Factory-based Type Information"/>
+ <object name="Inverse Implicator"
+    meta_type="Factory-based Type Information"/>
+ <object name="Relations Library" meta_type="Factory-based Type Information"/>
+ <object name="Ruleset" meta_type="Factory-based Type Information"/>
+ <object name="Ruleset Collection"
+    meta_type="Factory-based Type Information"/>
+ <object name="Type Constraint" meta_type="Factory-based Type Information"/>
+</object>
