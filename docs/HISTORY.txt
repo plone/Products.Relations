@@ -1,8 +1,451 @@
-Changelog
-=========
+2007-06-25  Jens Klein (jens at bluedynamics dot com)
 
-0.8 (svn/trunk) - Unreleased
-----------------
+        * we added events to relations on each connect and disconnect.
+	  within this implementation some cleanup were done. 
+	  the events are used for exampe by RelationsIndex, but you
+	  can subscribe to them also to fulfill task need to be done
+	  on connect or disconnect.
 
-* Initial release
+2007-02-25  Philipp Auersperg (phil at bluedynamics.com)
+
+        * allowedTypesByInterface now also supports zope3 interfaces
+
+2006-03-30  Daniel Nouri  <daniel (dot) nouri at gmail (dot) com>
+
+	* utils.py (adddeleteVocab): I put the ``adddelete_vocab`` script
+	onto the filesystem while adding a check for
+	``ModifyPortalContent`` on context.  The Python script still
+	exists, but it's only an alias now.  Also added tests, which the
+	script didn't have.
+
+2006-03-01  Jens Klein <jens@bluedynamics.com>
+
+        * field.py: i18n moved in Archetypes 1.4 to 
+	Products.Archetypes.generator.i18n
+
+2006-02-04  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* tests: Added more tests to check if multiple refs per triple
+	(i.e. same source, target, relationship) are working.  (Note that
+	this currently requires the dpunktnpunkt-multipleref branch of
+	Archetypes and that it's disallowed by default.
+
+2006-01-28  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* components/inverse.py (InverseImplicator.implyOnDisconnect):
+	Improvement of implementation.
+
+2006-01-26  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* components/inverse.py (InverseImplicator): New implementation
+	that no longer assumes that there's only one reference with the
+	same relationship between two objects.
+
+	* interfaces.py (IRuleset.implyOnConnect): No longer care about
+	whether a reference with the same triple of (source, target,
+	relationship) already exists.
+
+	* config.py (ALLOW_MULTIPLE_REFS_PER_TRIPLE): Added configuration
+	option for updateReferences argument of
+	ReferenceEngine.addReference.  It's turned off by default.
+
+	* interfaces.py (IRuleset.implyOnConnect)
+	(IPrimaryImplicator.connect): Added metadata keyword argument that
+	lets you provide attributes for the reference.  Note that this is
+	subject to change and will probably be moved out of the public
+	API.
+
+	* interfaces.py (IReferenceConnectionProcessor.process): Elements
+	of ``disconnect`` may also be UIDs of reference objects.
+
+2005-11-22 Jens Klein <jens@bluedynamics.com>
+
+	* fixed hiding of tools from navigation and tabs
+
+2005-08-10  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* ruleset.py (Library.__implements__): Fixed the faulty
+	IActionProvider implementation of Library.
+
+2005-07-20  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* components/cardinality.py: Applied patch by David Baehrens that
+	allows us to define source cardinality with CardinalityConstraint.
+
+2005-07-07  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* ruleset.py (XMLImportExport.schema): Use the accessor as the
+	default_method.
+
+	* utils.py (AllowedTypesByIface._verifyObjectPaste): Use
+	PortalFolderBase's _verifyObjectPaste as we're actually not
+	inheriting from PortalFolder.
+
+	* tests/testRuleset.py (TestRuleset.testRenameRulesetInLibrary):
+	Import transaction instead of using the global get_transaction.
+
+	* processor.py (process): Import transaction instead of using the
+	global get_transaction.
+	
+2005-06-03  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* components/contentreference.py (ContentReferenceFinalizer):
+	Added isPrimary attribute to CRF.
+
+2005-05-28  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* Extensions/Install.py (install_tools): Don't add library to
+	metaTypesNotToList.
+
+2005-05-18  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* skins/relations/relations_adddelete_vocab.py, model/*, tests/relations_sample.xml, tests/testXMLImportExport.py, doc/Overview.txt, interfaces.py, ruleset.py, field.py:
+	Merged relations_xml_import_export branch.  Adds import/export
+	capabilities to Rules, Rulesets, Library and RulesetCollections.
+	
+2005-02-21  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* interfaces.py (IRuleset.getComponents): This replaces the earlier
+	private _filterByInterface.
+
+	* interfaces.py (IRuleset.listActionsFor): Added a method which I
+	forgot to put in the interface earlier.
+
+	* interfaces.py (IVocabularyProvider.getSearchTerms): This should allow
+	us to interface with ATReferenceBrowserWidget in a reasonable manner.
+
+	* components/types.py (PortalTypeConstraint.getSearchTerms):
+	Comply with IVocabularyProvider.getSearchTerms .
+	
+2005-02-16  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* doc/Overview.txt: Doctest examples.
+
+2005-02-06  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* doc/Overview.txt: Added Developer's Documentation.  More to
+	come.
+	
+	* interfaces.py: Cleaned up a bit.
+	
+2005-02-02  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* field.py: Slimmed field.py by removing reimplemented methods
+	_Vocabulary and Vocabulary of ReferenceField.  The field's purpose
+	needs to be made clear, still.  See XXX comments.
+	
+2005-01-27  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* ruleset.py (RulesetCollection): Implemented a "Ruleset Collection"
+	type that allows to categorise Rulesets inside the Library.
+	
+	* ruleset.py (RulesetAwareContainer): Factored out methods
+	invokeFactory and _setObject of Library into class
+	RulesetAwareContainer.
+
+2005-01-25  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* *: Massive renaming.  'Jig' becomes 'Ruleset',
+	'ReferenceJigRegistry' becomes 'Library' etc.  These changes not
+	only affect portal type names, but also classes & variables.
+	These changes are not backwards compatible (i.e., no way to
+	migrate) and they're not tested thoroughly.
+	
+2005-01-13  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* jig.py (ReferenceJig.listActionsFor): Remove duplicate actions.
+
+	* skins/relations/relations_listrefs.py: Added helper script for
+	'relations_form', which now lists existing refs along with their
+	actions.  'relations_form' still needs improvement.
+	
+	* interfaces.py (IReferenceActionProvider): Added subtype of
+	IJigComponent.
+	
+2005-01-08  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* skins/relations/relations_form.cpt: Added an overview form that will
+	list existing references.
+	
+	* skins/relations/relations_adddelete.cpt: Renamed from relations_form.
+
+	* utils.py (getReferenceableTypes): Added function that returns a list
+	of portal type strings of all referenceable types.
+	
+	* Extensions/Install.py (install_tools): Fixed metaTypesNotToList
+	feature on install, which wasn't using the right meta_type.
+
+2005-01-02  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* components/contentreference.py, tests/testComponents.py: Added
+	component "ContentReferenceFinalizer", which associates portal objects
+	with references.
+
+	* jig.py (ReferenceJig._forEachDo): Prevent acquiring method from self
+	if it's not implemented in the component.
+
+2005-01-01  Daniel Nouri  <dpunktnpunkt at web.de>
+
+	* Extensions/Install.py (install_tools): Fixed hiding in navtree; check
+	for the existance of a 'portal_properties.navtree_properties' to not
+	break all tests. :-)
+
+	* brain.py (makeBrainAggrFromBrain): More explanatory exception message
+	when no metadata could be found in a source.
+	
+2004-10-21  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* tests/*: Removed calls to CMFTestCase.setupCMFSite(), which were done
+	too early.
+
+2004-10-15  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* COPYRIGHT, LICENSE: Added copyright information.
+
+	* jig.py (ReferenceJigRegistry._setObject): Copied referencejigs are
+	registered properly now.
+
+2004-10-05  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* schema.py (ReferenceJigSchema): Added 'about' field to referencejig's
+	schema.
+
+2004-10-04  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* jig.py (ReferenceJigRegistry.getJig): Restored old way of looking
+	up a jig by its id, which involves two catalog lookups. 'targetId'
+	index of 'reference_catalog' seems to be broken.
+
+	This fixes a bug where renaming a jig would cause a lookup to fail.
+
+	* README.txt: Revamped README. Also, some minor code changes according
+	to new terms.
+
+2004-10-02  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* jig.py (ReferenceJigRegistry.getJigs): Made ReferenceJigRegistry
+	an OrderedBaseFolder. 'getJigs' now returns jigs in the order in which
+	they appear in the registry.
+
+	* jig.py (ReferenceJig._afterRename): Set relationship attribute for
+	references that belong to us on rename.
+
+	* jig.py (ReferenceJigRegistry._setObject): Added function only
+	to assist ReferenceJig in finding out when it is renamed.
+
+	* jig.py (ReferenceJig.implyOnConnect): When connecting, we now put up
+	a reference between the jig and the ref.
+
+	* tests/testJig.py (TestReferenceJig.testRenameJigInRegistry): Test
+	the new 'referencejig rename -> ref relationship attrs change'
+	behaviour.
+	
+	* tests/testJig.py (TestReferenceJig.testForward): Fixed bug with a
+	ref catalog search.
+	
+2004-09-25  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* tests/testJig.py (TestJigRegistry.testRenameRegistry): Added test
+	to ensure that the jig registry may not be renamed.
+
+	* schema.py: Added module: Schema definitions for jig module, and other
+	common schemas.
+
+	* utils.py (AllowedTypesByIface._verifyObjectPaste): Use _setObject
+	of 'portal_types' instead of setattr. This fixes renaming of jigs and
+	components yet again.
+
+2004-09-24  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* components/types.py (PortalTypeConstraint.makeVocabulary): Fixed bug
+	where filtering a vocabulary would behave differently than creating it.
+
+2004-09-22  Daniel Nouri  <dpunktnpunkt@web.de>
+	
+	* utils.py (AllowedTypesByIface._verifyObjectPaste): A temporary and
+	rather hackish solution for a bug that would hinder renaming jigs
+	and components.
+	AllowedTypesByIface feels more and more like a hack.
+
+	* tests/testJig.py (TestReferenceJig.testRenameJigInRegistry): Added
+	test for the jig/component rename bug.
+	
+	* Extensions/Install.py (uninstall): Working around a bug with
+	QuickInstaller thinking we own ['mimetypes_registry',
+	'portal_transforms', 'archetype_tool', 'uid_catalog',
+	'reference_catalog'].
+
+2004-09-20  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* skins/relations/relations_form_security.vpy: Added check for
+	'Modify portal content' permission when using 'relations_form'.
+
+	* skins/relations/relations_form_vocab.py: Removed vocabulary logic
+	out of PT. The result is this somewhat bloated script.
+
+	* brain.py (makeBrainAggregate): Made function public.
+
+	* jig.py (ReferenceJigRegistry.listActions): We want to check for
+	'Modify portal content' permission for the 'Relations' action.
+
+	* utils.py (isReferenceable): Added new TTW method to assist
+	'relations_form_vocab'.
+	
+2004-09-19  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* exception.py (ValidationException): Added class level attribute
+	__allow_access_to_unprotected_subobjects__, fixing a severe bug with
+	'relations_form_validate'.
+
+	* skins/relations/relations_form.cpt: Display error messages in the
+	orange box.
+
+2004-09-16  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* jig.py (ReferenceJigRegistry.listActions): Made ReferenceJigRegistry
+	an ActionProvider. All referenceable objects have a 'relations' action
+	now.
+
+	* processor.py (process): Made function public.
+
+	* exception.py (ValidationException): Made exception class public.
+
+	* skins/relations/*, TODO: Added form for creating references through
+	'processor.process'. Removed TODO item for such a form, added one
+	for i18n.
+
+	* jig.py (ReferenceJigRegistry.invokeFactory): Moved automatic
+	registration of jigs from _setObject to invokeFactory.
+
+	* components/types.py (PortalTypeConstraint.makeVocabulary): Fixed a
+	bug where this method would return [] if allowed target types were the
+	empty list.
+	
+2004-09-10  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* components/cardinality.py (CardinalityConstraint.doValidate): Renamed
+	validate to doValidate to avoid nameclash with 'BaseObject.validate'.
+
+2004-09-07  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* jig.py (ReferenceJig, ReferenceJigRegistry): Added class docstring.
+	Zope returned 404s because of this.
+
+	* TODO, jig.py (ReferenceJig, ReferenceJigRegistry): ReferenceJig's
+	and ReferenceJigRegistry's type titles are now "Reference Rulebook" and
+	"Rulebook Library" respectively.
+
+2004-09-06  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* interfaces.py, jig.py, components/*: Removed `jig' argument from
+	all calls to IJigComponents. Extended IJigComponent and added a new
+	superclass JigComponentBase providing a `getJig' method.
+
+	* jig.py, interfaces.py (IReferenceJig): IReferenceJig.makeVocabulary
+	now accepts an optional `targets' argument. Targets, which has a
+	default value of None, is forwarded to the first IVocabularyProvider.
+	No changes to IVocabularyProvider necessary.
+
+	* utils.py (AllowedTypesByIface): A superclass for ReferenceJig and
+	ReferenceJigRegistry that alters PortalFolder's allowedContentTypes
+	and invokeFactory behaviour. Method `allowedContentTypes' was a module
+	level function before. I had to add invokeFactory.
+
+	* jig.py (JigComponentBase): Added global_allow = 0. Subclasses are
+	now by default only addable inside ReferenceJigs.
+
+	* tests/types.py: Deleted. These types were not in use anywhere.
+
+	* TODO: Added two items.
+	
+2004-08-22  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* processor.py (process): Changed interface of processor from seperate
+	processConnection and processDisconnection to one process function
+	with optional connect and disconnect arguments.
+
+	Changed 7 tests to reflect these changes.
+
+2004-08-19  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* components/inverse.py: Added 'Inverse Implicator' component.
+
+	* tests/testComponents.py (TestInverseImplicator): Test for
+	InverseImplicator.
+
+	* brain.py: Changed BrainAggregate to use __getattr__ instead of
+	relying on acquisition to get uid brain's attributes.
+
+2004-08-17  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* components/cardinality.py (CardinalityConstraint): Added
+	CardinalityConstraint.
+
+	* tests/testComponents.py (TestCardinalityConstraint): Test for
+	CardinalityConstraint.
+
+	* components/types.py (InterfaceConstraint): Added InterfaceConstraint:
+	A validator/vocab provider based on PortalTypeConstraint that checks
+	for interfaces rather than types.
+
+	* tests/testComponents.py (TestInterfaceConstraint): Added test.
+
+2004-08-16  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* processor.py: Use a subtransaction and abort it for both
+	processConnection and processDisconnection if an exception is thrown.
+
+	* components/types.py: A validator and vocab provider that restricts
+	types of source and target.
+
+	* tests/testComponents.py: Test components in module components.
+
+2004-08-15  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* tests/common.py (createObjects, createJig): Factored out of
+	testJig.py.
+
+	* tests/testProcess.py: Test for processConnection and
+	processDisconnection.
+
+2004-08-11  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* TODO: Added file.
+
+	Added jig as the first argument to every component call. Updated
+	interfaces and tests accordingly.
+
+2004-08-10  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* tests/testJig.py (TestJigRegistry.testAllowedContentTypes): Added.
+
+	* jig.py (ReferenceJigRegistry.allowedContentTypes): Override
+	allowedContentTypes in Jig Registry as well to the effect that we
+	are now able to add any type of objects that implement the
+	IReferenceJig interface from the UI.
+
+	* utils.py: Added.
+
+	* utils.py (allowedContentTypesByInterface): Refactored
+	allowedContentTypes of ReferenceJig into this.
+
+	* Extensions/Install.py, Extensions/utils.py: Add ReferenceJigRegistry
+	to Plone configlets.
+	
+2004-08-03  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* interfaces.py: Modified behaviour of IPrimaryImplicator's connect
+	and disconnect methods. They now return None if they didn't add or
+	delete the reference because it was already there or deleted
+	respectively.
+
+	* tests/testJig.py (TestReferenceJig.testDefaultPrimaryImplicator):
+	Added.
+	
+2004-08-01  Daniel Nouri  <dpunktnpunkt@web.de>
+
+	* jig.py (ReferenceJigRegistry): Made ReferenceJigRegistry an AT
+	BaseFolder instead of an OFS.Folder. ReferenceJigRegistry will serve
+	as a folderish UI for adding jigs.
+	
 
