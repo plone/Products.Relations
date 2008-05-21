@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.8 (svn/trunk)'
+version = '0.8'
 
 setup(name='Products.Relations',
       version=version,
