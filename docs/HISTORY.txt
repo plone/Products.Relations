@@ -1,3 +1,15 @@
+2008-09-10  Cris Ewing (cewing at u dot washington dot edu)
+
+    Fixed a bug in the finalizeOnConnect() method of 
+    components.contentreference.ContentReferenceFinalizer.finalizeOnConnect
+    that left Shared Objects (association classes) cataloged by 
+    portal_catalog.  This caused attribute errors to be thrown by 
+    methods called in Plone's sharing UI.  (See 
+    https://weblion.psu.edu/trac/weblion/ticket/531 for a detailed
+    discussion)
+    
+    Tagged 0.8.1 bugfix release, posted egg to cheeseshop.
+
 2008-05-28  Alex Clark  (aclark at aclark dot net)
 
     Egg-i-fy.

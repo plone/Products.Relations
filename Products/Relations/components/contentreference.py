@@ -128,6 +128,11 @@ class ContentReferenceFinalizer(BaseContent, ruleset.RuleBase):
                 )
 
             obj = getattr(reference, name)
+            
+            # uncatalog the newly created object from the portal catalog
+            # it doesn't need to be there, and causes problems when it is.
+            obj.unindexObject()
+            
             obj.setTitle(self.Title())
             if self.getShareWithInverse():
                 key = _makeKey(self.getRuleset().getId(),

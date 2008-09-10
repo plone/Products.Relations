@@ -428,6 +428,37 @@ class TestContentReferenceFinalizer(PloneTestCase.PloneTestCase):
         self.ruleset2.cr.setShareWithInverse(None)
         processor.process(self.portal, connect=triples)
         assertDifferentObjects()
+        
+    def testSharedObjectNotCataloged(self):
+        """ If shared objects are cataloged in the portal catalog, they can
+            lead to problems with the Sharing UI in plone.  Adding or deleting 
+            a reference can cause sharing to break with an attribute error 
+            pointing to miscataloged or missing Shared Objects.
+            
+            This test demonstrates that Shared objects are in no longer 
+            cataloged in the portal catalog.
+        """
+        sUID, tUID = self.brains[0].UID, self.brains[1].UID
+        triples = (sUID, tUID, self.ruleset1.getId()),
+        processor.process(self.portal, connect=triples)
+        
+        # use the sUID and the tUID to fetch the brains of the source 
+        # and target objects
+        pc = getToolByName(self.portal, 'portal_catalog')
+        try:
+            tbrains = pc(UID=tUID)[0]
+        except IndexError:
+            self.fail("Unable to locate the target object via UID in the portal_catalog")
+        try:
+            sbrains = pc(UID=sUID)[0]
+        except IndexError:
+            self.fail("Unable to locate the target object via UID in the portal_catalog")
+
+        tcontents = pc(path=tbrains.getPath())
+        scontents = pc(path=sbrains.getPath())
+        
+        self.failUnlessEqual(len(tcontents), 1, "Portal catalog shows shared object inside the target object")
+        self.failUnlessEqual(len(scontents), 1, "Portal catalog shows shared object inside the source object")        
 
     def testReferenceActionProvider(self):
         title = 'A Title'
