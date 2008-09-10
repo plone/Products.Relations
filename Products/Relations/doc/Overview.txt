@@ -220,7 +220,7 @@ done by a simple API call:
   >>> xml = portal.relations_library.exportXML()
   >>> print xml
   <?xml version="1.0" ?>
-  <RelationsLibrary id="relations_library" title="Relations Library" uid="...">
+  <RelationsLibrary id="relations_library" ...>
   <Ruleset id="MyRuleset" title="" uid="...">
   ...
   <CardinalityConstraint id="cc" ...>
