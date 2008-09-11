@@ -333,16 +333,16 @@ class TestInverseImplicator(PloneTestCase.PloneTestCase):
 #                 ref2_uid = ref.UID()
 #         
 #         self.failIf(ref2_uid is None)
-
-        # We can also pass reference UIDs to process disconnect:
-        processor.process(self.portal, disconnect=(ref1_uid,))
-        self.assertEquals(len(self.objs[1].getRefs()), 1)
-        self.assertEquals(self.objs[1].getRefs()[0], self.objs[0])
-        self.assertEquals(self.objs[1].getReferenceImpl()[0].UID(), ref2_uid)
-
-        self.assertEquals(len(self.objs[0].getRefs()), 1)
-        self.assertEquals(self.objs[0].getRefs()[0], self.objs[1])
-        config.ALLOW_MULTIPLE_REFS_PER_TRIPLE = False
+# 
+#         # We can also pass reference UIDs to process disconnect:
+#         processor.process(self.portal, disconnect=(ref1_uid,))
+#         self.assertEquals(len(self.objs[1].getRefs()), 1)
+#         self.assertEquals(self.objs[1].getRefs()[0], self.objs[0])
+#         self.assertEquals(self.objs[1].getReferenceImpl()[0].UID(), ref2_uid)
+# 
+#         self.assertEquals(len(self.objs[0].getRefs()), 1)
+#         self.assertEquals(self.objs[0].getRefs()[0], self.objs[1])
+#         config.ALLOW_MULTIPLE_REFS_PER_TRIPLE = False
 
     def testInverseWithSameTripleButNotAllowed(self):
         self.ii.setInverseRuleset(self.ruleset2.UID())
