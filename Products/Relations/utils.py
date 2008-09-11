@@ -139,6 +139,9 @@ def isReferenceable(context):
     else:
         return False
 
+## TODO:
+##  resolve permission discrepancies between this method and the action that calls it
+##  as a condition
 modulesec.declarePublic('adddeleteVocab')
 def adddeleteVocab(context, test_only=0, ruleset_ids=None):
     """Make Relations vocabularies by querying all rulesets.

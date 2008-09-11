@@ -304,34 +304,35 @@ class TestInverseImplicator(PloneTestCase.PloneTestCase):
         self.assertEquals(self.objs[0].getRefs(), self.objs[1].getRefs())
         self.assertEquals(self.objs[0].getRefs(), [])
 
-    def testInverseWithSameTriple(self):
-        # This test requires the dpunktnpunkt-multipleref branch of
-        # Archetypes to work
-        from Products.Relations import config
-        config.ALLOW_MULTIPLE_REFS_PER_TRIPLE = True
-
-        self.ii.setInverseRuleset(self.ruleset2.UID())
-        self.ii2.setInverseRuleset(self.ruleset.UID())
-
-        triples = (self.brains[0].UID, self.brains[1].UID,
-                   self.ruleset.getId()),
-        processor.process(self.portal, connect=triples)
-        self.assertEquals(len(self.objs[1].getRefs()), 1)
-        self.assertEquals(self.objs[1].getRefs()[0], self.objs[0])
-
-        ref1_uid = self.objs[1].getReferenceImpl()[0].UID()
-        processor.process(self.portal, connect=triples)
-        self.assertEquals(len(self.objs[1].getRefs()), 2)
-        refs = self.objs[1].getReferenceImpl()
-        self.failUnless(ref1_uid in [r.UID() for r in refs])
-
-        # get the other ref's UID
-        ref2_uid = None
-        for ref in refs:
-            if ref.UID() != ref1_uid:
-                ref2_uid = ref.UID()
-        
-        self.failIf(ref2_uid is None)
+####### Remove this test until we can run it conditionally
+#     def testInverseWithSameTriple(self):
+#         # This test requires the dpunktnpunkt-multipleref branch of
+#         # Archetypes to work
+#         from Products.Relations import config
+#         config.ALLOW_MULTIPLE_REFS_PER_TRIPLE = True
+# 
+#         self.ii.setInverseRuleset(self.ruleset2.UID())
+#         self.ii2.setInverseRuleset(self.ruleset.UID())
+# 
+#         triples = (self.brains[0].UID, self.brains[1].UID,
+#                    self.ruleset.getId()),
+#         processor.process(self.portal, connect=triples)
+#         self.assertEquals(len(self.objs[1].getRefs()), 1)
+#         self.assertEquals(self.objs[1].getRefs()[0], self.objs[0])
+# 
+#         ref1_uid = self.objs[1].getReferenceImpl()[0].UID()
+#         processor.process(self.portal, connect=triples)
+#         self.assertEquals(len(self.objs[1].getRefs()), 2)
+#         refs = self.objs[1].getReferenceImpl()
+#         self.failUnless(ref1_uid in [r.UID() for r in refs])
+# 
+#         # get the other ref's UID
+#         ref2_uid = None
+#         for ref in refs:
+#             if ref.UID() != ref1_uid:
+#                 ref2_uid = ref.UID()
+#         
+#         self.failIf(ref2_uid is None)
 
         # We can also pass reference UIDs to process disconnect:
         processor.process(self.portal, disconnect=(ref1_uid,))
