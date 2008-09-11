@@ -72,7 +72,9 @@ class TestLibrary(PloneTestCase.PloneTestCase):
                           lib.invokeFactory,
                           'SimpleType', 'disallowed')
         self.logout()
-
+    
+    ## TODO:
+    ##  rework this test to comply with current permissions settings for Products.Relations action
     def testActions(self):
         # test registration as ActionProvider and the action we define
 
@@ -431,40 +433,41 @@ class TestRuleset(PloneTestCase.PloneTestCase):
                          relationship=self.ruleset.getId())
         self.assertEquals(len(brains), 1)
 
-    def testDefaultPrimaryImplicatorMultipleRefsPerTriple(self):
-        # This test requires the dpunktnpunkt-multipleref branch of
-        # Archetypes to work
-        from Products.Relations import config
-        config.ALLOW_MULTIPLE_REFS_PER_TRIPLE = True
-
-        ref_ctl = getToolByName(self.portal, REFERENCE_CATALOG)
-
-        impl = rulesetmodule.DefaultPrimaryImplicator(self.ruleset)
-        
-        # connect 0 and 1
-        ref = impl.connect(self.brains[0], self.brains[1])
-        self.assertNotEquals(ref, None)
-        brains = ref_ctl(sourceUID=self.brains[0].UID,
-                         targetUID=self.brains[1].UID,
-                         relationship=self.ruleset.getId())
-        self.assertEquals(len(brains), 1)
-        self.assertEquals(ref, brains[0].getObject())
-
-        # now do the same again, connect must returns another ref now
-        ref2 = impl.connect(self.brains[0], self.brains[1])
-        self.assertNotEquals(ref2, None)
-
-        # Now two references with the sample source, target and
-        # relationship live in the catalog
-        brains = ref_ctl(sourceUID=self.brains[0].UID,
-                         targetUID=self.brains[1].UID,
-                         relationship=self.ruleset.getId())
-        self.assertEquals(len(brains), 2)
-        ref_uids = [b.UID for b in brains]
-        self.failUnless(ref.UID() in ref_uids)
-        self.failUnless(ref2.UID() in ref_uids)
-        
-        config.ALLOW_MULTIPLE_REFS_PER_TRIPLE = False        
+####### Remove this test until we can run it conditionally
+#     def testDefaultPrimaryImplicatorMultipleRefsPerTriple(self):
+#         # This test requires the dpunktnpunkt-multipleref branch of
+#         # Archetypes to work
+#         from Products.Relations import config
+#         config.ALLOW_MULTIPLE_REFS_PER_TRIPLE = True
+# 
+#         ref_ctl = getToolByName(self.portal, REFERENCE_CATALOG)
+# 
+#         impl = rulesetmodule.DefaultPrimaryImplicator(self.ruleset)
+#         
+#         # connect 0 and 1
+#         ref = impl.connect(self.brains[0], self.brains[1])
+#         self.assertNotEquals(ref, None)
+#         brains = ref_ctl(sourceUID=self.brains[0].UID,
+#                          targetUID=self.brains[1].UID,
+#                          relationship=self.ruleset.getId())
+#         self.assertEquals(len(brains), 1)
+#         self.assertEquals(ref, brains[0].getObject())
+# 
+#         # now do the same again, connect must returns another ref now
+#         ref2 = impl.connect(self.brains[0], self.brains[1])
+#         self.assertNotEquals(ref2, None)
+# 
+#         # Now two references with the sample source, target and
+#         # relationship live in the catalog
+#         brains = ref_ctl(sourceUID=self.brains[0].UID,
+#                          targetUID=self.brains[1].UID,
+#                          relationship=self.ruleset.getId())
+#         self.assertEquals(len(brains), 2)
+#         ref_uids = [b.UID for b in brains]
+#         self.failUnless(ref.UID() in ref_uids)
+#         self.failUnless(ref2.UID() in ref_uids)
+#         
+#         config.ALLOW_MULTIPLE_REFS_PER_TRIPLE = False        
 
     def testReferenceWithBrains(self):
         # tests class ReferenceWithBrains of module brain (XXX)
