@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
-<object name="portal_controlpanel">
+<object name="portal_controlpanel" xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="Relations">
  <configlet title="Relations: Library" action_id="relations_library"
     appId="Products.Relations" category="Products" condition_expr=""
-    url_expr="string:${portal_url}/relations_library/" visible="True">
+    url_expr="string:${portal_url}/relations_library/" visible="True" i18n:attributes="title">
   <permission>Manage portal</permission>
  </configlet>
 </object>

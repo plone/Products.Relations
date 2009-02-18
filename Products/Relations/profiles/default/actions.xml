@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
-<object name="portal_actions">
+<object name="portal_actions"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <object name="object" meta_type="CMF Action Category">
-  <object name="relations" meta_type="CMF Action">
-   <property name="title">Relations</property>
+  <object name="relations" meta_type="CMF Action" i18n:domain="Relations">
+   <property name="title" i18n:translate="label_profiles_default">Relations</property>
    <property name="description"></property>
    <property name="url_expr">string:$object_url/relations_form</property>
    <property name="icon_expr"></property>
