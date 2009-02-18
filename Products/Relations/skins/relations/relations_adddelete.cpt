@@ -1,6 +1,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en"
-      metal:use-macro="here/main_template/macros/master">
+      metal:use-macro="here/main_template/macros/master"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="Relations">
 
   <body>
 
@@ -9,7 +13,7 @@
                      vocabulary here/relations_adddelete_vocab;
                      all_fields python:[];">
 
-      <h1>Add and Delete References for <span tal:replace="here/title_or_id" /></h1>
+      <h1 i18n:translate="label_relationsadddel_references">Add and Delete References for <span tal:replace="here/title_or_id" /></h1>
       <a href=""
 	 class="link-parent"
 	 tal:attributes="href string:${here/absolute_url}/relations_form">
@@ -33,7 +37,7 @@
                Ruleset title
 	     </label>
 
-             <div tal:content="error">Validation error output</div>
+             <div tal:content="error" i18n:translate="label_relationsadddel_valida_error">Validation error output</div>
 
              <select multiple="multiple"
                      tal:attributes="name string:${field_id}:list;
@@ -67,7 +71,7 @@
                  type="submit"
                  name="form.button.Cancel"
                  value="Cancel"
-                 i18n:attributes="value"
+                 i18n:attributes="value label_relationsadddel_cancel;"
                  tal:attributes="tabindex tabindex/next" />
         </div>
 

@@ -1,14 +1,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en"
-      metal:use-macro="here/main_template/macros/master">
+      metal:use-macro="here/main_template/macros/master"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="Relations">
 
   <body>
 
     <div metal:fill-slot="main">
 
-      <h1>Relations: Overview</h1>
+      <h1 i18n:translate="label_relationsform_overview">Relations: Overview</h1>
 
-      <div id="description">
+      <div id="description" i18n:translate="help_relationsform_overview">
         This area shows you existing references.  You may also want to
         <a href="" tal:attributes="href string:${here/absolute_url}/relations_adddelete">add and delete</a>
         references.

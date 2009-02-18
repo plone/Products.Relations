@@ -1,12 +1,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
-      metal:use-macro="here/main_template/macros/master">
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="Relations">
 
   <body>
 
     <div metal:fill-slot="main">
 
-        <h1>Relations: Import</h1>
+        <h1 i18n:translate="label_relationsimexport_import">Relations: Import</h1>
         <p>
         TODO
         <form>
@@ -15,9 +19,9 @@
         </form>
         </p>
 
-        <h1>Relations: Export</h1>
+        <h1 i18n:translate="label_relationsimexport_export">Relations: Export</h1>
 
-        <a href="#" tal:attributes="href string:${context/absolute_url}/exportXML">Export all rulesets</a>
+        <a href="#" tal:attributes="href string:${context/absolute_url}/exportXML" i18n:translate="label_relationsimexport_export_all">Export all rulesets</a>
         
 
     </div>
