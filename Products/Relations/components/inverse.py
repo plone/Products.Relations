@@ -48,7 +48,12 @@ class InverseImplicator(BaseContent, ruleset.RuleBase):
     schema = BaseSchemaWithInvisibleId + Schema((
         ReferenceField('inverseRuleset',
                        relationship='inverseRuleset',
-                       allowed_types_method='_allowedTypesRuleset'),
+                       allowed_types_method='_allowedTypesRuleset',
+                       widget=ReferenceWidget(label='Inverse Ruleset',
+                                       label_msgid='label_relation_inverseruleset',
+                                       #description="A description...",
+                                       #description_msgid='help_inverseruleset',
+                                       i18n_domain='Relations',),),
         ))
     portal_type = 'Inverse Implicator'
 

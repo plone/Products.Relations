@@ -65,12 +65,20 @@ class PortalTypeConstraint(BaseContent, ruleset.RuleBase):
         LinesField('allowedSourceTypes',
                    vocabulary='_allowedTypesVocabulary',
                    enforceVocabulary=True,
-                   widget=MultiSelectionWidget),
+                   widget=MultiSelectionWidget(label='Allowed Source Types',
+                                       label_msgid='label_relation_allowsrctypes',
+                                       #description="A description...",
+                                       #description_msgid='help_relation_primary',
+                                       i18n_domain='Relations',),),
 
         LinesField('allowedTargetTypes',
                    vocabulary='_allowedTypesVocabulary',
                    enforceVocabulary=True,
-                   widget=MultiSelectionWidget),
+                   widget=MultiSelectionWidget(label='Allowed Target Types',
+                                       label_msgid='label_relation_allowtargtypes',
+                                       #description="A description...",
+                                       #description_msgid='help_relation_primary',
+                                       i18n_domain='Relations',),),
         ))
     portal_type = 'Type Constraint'
 
@@ -106,8 +114,18 @@ class InterfaceConstraint(PortalTypeConstraint):
         return portal_types
 
     schema = BaseSchemaWithInvisibleId + Schema((
-        LinesField('allowedSourceInterfaces'),
-        LinesField('allowedTargetInterfaces'),
+        LinesField('allowedSourceInterfaces',
+                    widget=LinesWidget(label='Allowed Source Interfaces',
+                                       label_msgid='label_relation_allowsrcinterface',
+                                       #description="A description...",
+                                       #description_msgid='help_relation_primary',
+                                       i18n_domain='Relations',),),
+        LinesField('allowedTargetInterfaces',
+                    widget=LinesWidget(label='Allowed Target Interfaces',
+                                       label_msgid='label_relation_allowtarginterface',
+                                       #description="A description...",
+                                       #description_msgid='help_relation_primary',
+                                       i18n_domain='Relations',),),
         ))
     archetype_name = portal_type = 'Interface Constraint'
 

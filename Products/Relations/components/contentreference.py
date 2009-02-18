@@ -185,11 +185,27 @@ class ContentReferenceFinalizer(BaseContent, ruleset.RuleBase):
                     vocabulary='_availableTypesVocabulary',
                     enforceVocabulary=True,
                     required=True,
-                    widget=SelectionWidget),
+                    widget=SelectionWidget(label='Portal Type',
+                                       label_msgid='label_relation_portaltype',
+                                       description="Select a Portal Type from the list.",
+                                       description_msgid='help_relation_portaltype',
+                                       i18n_domain='Relations',),),
 
-        BooleanField('shareWithInverse', default=True),
+        BooleanField('shareWithInverse',
+                    default=True,
+                    widget=BooleanWidget(label='Share with Inverse?',
+                                       label_msgid='label_relation_shareinverse',
+                                       #description="A description...",
+                                       #description_msgid='help_relation_shareinverse',
+                                       i18n_domain='Relations',),),
 
-        BooleanField('primary', accessor='isPrimary'),
+        BooleanField('primary',
+                    accessor='isPrimary',
+                    widget=BooleanWidget(label='Is Primary?',
+                                       label_msgid='label_relation_primary',
+                                       #description="A description...",
+                                       #description_msgid='help_relation_primary',
+                                       i18n_domain='Relations',),),
         ))
     portal_type = 'Content Reference'
 

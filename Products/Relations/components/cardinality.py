@@ -69,10 +69,30 @@ class CardinalityConstraint(BaseContent, ruleset.RuleBase):
     
     # AT implementation    
     schema = BaseSchemaWithInvisibleId + Schema((
-        IntegerField('minSourceCardinality'),
-        IntegerField('maxSourceCardinality'),
-        IntegerField('minTargetCardinality'),
-        IntegerField('maxTargetCardinality'),
+        IntegerField('minSourceCardinality',
+                     widget=IntegerWidget(label='Minimum Source Cardinality',
+                                         label_msgid='label_relation_minsrccardinality',
+                                         description="Information about minimum source cardinality",
+                                         description_msgid='help_relation_minsrccardinality',
+                                         i18n_domain='Relations',),),
+        IntegerField('maxSourceCardinality',
+                     widget=IntegerWidget(label='Maximum Source Cardinality',
+                                         label_msgid='label_relation_maxsrccardinality',
+                                         description="Information about maximum source cardinality",
+                                         description_msgid='help_relation_maxsrccardinality',
+                                         i18n_domain='Relations',),),
+        IntegerField('minTargetCardinality',
+                     widget=IntegerWidget(label='Minimum Target Cardinality',
+                                         label_msgid='label_relation_mintargcardinality',
+                                         description="Information about minimum target cardinality",
+                                         description_msgid='help_relation_mintargcardinality',
+                                         i18n_domain='Relations',),),
+        IntegerField('maxTargetCardinality',
+                     widget=IntegerWidget(label='Maximum Target Cardinality',
+                                         label_msgid='label_relation_mintargcardinality',
+                                         description="Information about maximum target cardinality",
+                                         description_msgid='help_relation_mintargcardinality',
+                                         i18n_domain='Relations',),),
         ))
     portal_type = 'Cardinality Constraint'
 
