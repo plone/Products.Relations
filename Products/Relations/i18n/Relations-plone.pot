@@ -1,0 +1,121 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: Relations-plone-es\n"
+"POT-Creation-Date: 2009-01-23 06:43-0430\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+#. Default: "Relations: Library"
+#: ./profiles/default/actionicons.xml:5
+#: ./profiles/default/controlpanel.xml:3
+msgid "Relations: Library"
+msgstr ""
+
+#. Default: "Relations"
+#: ./profiles/default/actions.xml:6
+msgid "label_profiles_default"
+msgstr ""
+
+#. Default: "Cardinality Constraint"
+#: ./profiles/default/types/Cardinality_Constraint.xml:5
+msgid "Cardinality Constraint"
+msgstr ""
+
+#. Default: "An IValidator and IReferenceLayerProvider that enforces cardinality."
+#: ./profiles/default/types/Cardinality_Constraint.xml:7
+msgid "An IValidator and IReferenceLayerProvider that enforces cardinality."
+msgstr ""
+
+#. Default: "Content Reference Finalizer"
+#: ./profiles/default/types/Content_Reference.xml:4
+msgid "Content Reference Finalizer"
+msgstr ""
+
+#. Default: "PrimaryImplicator and Finalizer that associates a portal object with a reference. I am aware of InverseImplicator and I allow a reference and its inverse to share one portal object. References that I create conform to this module's IContentReference, which derives from Archetypes.interfaces.referenceengine.IContentReference."
+#: ./profiles/default/types/Content_Reference.xml:6
+msgid ""
+"PrimaryImplicator and Finalizer that associates a portal object"
+"with a reference."
+"I am aware of InverseImplicator and I allow a reference and its"
+"inverse to share one portal object."
+"References that I create conform to this module's"
+"IContentReference, which derives from"
+"Archetypes.interfaces.referenceengine.IContentReference."
+msgstr ""
+
+#. Default: "Interface Constraint"
+#: ./profiles/default/types/Interface_Constraint.xml:4
+msgid "Interface Constraint"
+msgstr ""
+
+#. Default: "A validator and vocabulary provider, restricting sources and targets by interfaces they implement."
+#: ./profiles/default/types/Interface_Constraint.xml:6
+msgid ""
+"A validator and vocabulary provider, restricting sources and targets"
+"by interfaces they implement."
+msgstr ""
+
+#. Default: "Inverse Implicator"
+#: ./profiles/default/types/Inverse_Implicator.xml:4
+msgid "Inverse Implicator"
+msgstr ""
+
+#. Default: "Implicator that creates a reference from target to source."
+#: ./profiles/default/types/Inverse_Implicator.xml:6
+msgid "Implicator that creates a reference from target to source."
+msgstr ""
+
+#. Default: "Relations Library"
+#: ./profiles/default/types/Relations_Library.xml:4
+msgid "Relations Library"
+msgstr ""
+
+#. Default: "Registry for IRulesets. See ILibrary."
+#: ./profiles/default/types/Relations_Library.xml:5
+msgid "Registry for IRulesets. See ILibrary."
+msgstr ""
+
+#. Default: "Ruleset"
+#: ./profiles/default/types/Ruleset.xml:4
+msgid "Ruleset"
+msgstr ""
+
+#. Default: "See IRuleset."
+#: ./profiles/default/types/Ruleset.xml:5
+msgid "See IRuleset."
+msgstr ""
+
+#. Default: "Ruleset Collection"
+#: ./profiles/default/types/Ruleset_Collection.xml:4
+msgid "Ruleset Collection"
+msgstr ""
+
+#. Default: "A container for IRulesets that lives inside the library."
+#: ./profiles/default/types/Ruleset_Collection.xml:6
+msgid "A container for IRulesets that lives inside the library."
+msgstr ""
+
+#. Default: "Portal Type Constraint"
+#: ./profiles/default/types/Type_Constraint.xml:4
+msgid "Portal Type Constraint"
+msgstr ""
+
+#. Default: "A validator and vocabulary provider, restricting sources and targets by portal type."
+#: ./profiles/default/types/Type_Constraint.xml:6
+msgid ""
+"A validator and vocabulary provider, restricting sources and targets"
+"by portal type."
+msgstr ""
+

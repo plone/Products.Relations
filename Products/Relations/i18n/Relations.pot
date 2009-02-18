@@ -1,0 +1,210 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: Relations\n"
+"POT-Creation-Date: 2009-01-23 06:43-0430\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: Relations\n"
+
+#. Default: "Relations: Overview"
+#: ./skins/relations/relations_form.pt:13
+msgid "label_relationsform_overview"
+msgstr ""
+
+#. Default: "This area shows you existing references.  You may also want to <a href="" tal:attributes="href string:${here/absolute_url}/relations_adddelete">add and delete</a> references."
+#: ./skins/relations/relations_form.pt:15
+msgid "help_relationsform_overview"
+msgstr ""
+
+#. Default: "Add and Delete References for <span tal:replace="here/title_or_id" />"
+#: ./skins/relations/relations_adddelete.cpt:16
+msgid "label_relationsadddel_references"
+msgstr ""
+
+#. Default: "Validation error output"
+#: ./skins/relations/relations_adddelete.cpt:40
+msgid "label_relationsadddel_valida_error"
+msgstr ""
+
+#. Default: "Cancel"
+#: ./skins/relations/relations_adddelete.cpt:73
+msgid "label_relationsadddel_cancel"
+msgstr ""
+
+#. Default: "Relations: Import"
+#: ./skins/relations/relations_imexport.pt:13
+msgid "label_relationsimexport_import"
+msgstr ""
+
+#. Default: "Relations: Export"
+#: ./skins/relations/relations_imexport.pt:22
+msgid "label_relationsimexport_export"
+msgstr ""
+
+#. Default: "Export all rulesets"
+#: ./skins/relations/relations_imexport.pt:24
+msgid "label_relationsimexport_export_all"
+msgstr ""
+
+#. Default: "Relations: Library"
+#: ./profiles/default/actionicons.xml:5
+#: ./profiles/default/controlpanel.xml:3
+msgid "Relations: Library"
+msgstr ""
+
+#. Default: "Cardinality Constraint"
+#: ./profiles/default/types/Cardinality_Constraint.xml:5
+msgid "label_types_cardinality_constraint"
+msgstr ""
+
+#. Default: "An IValidator and IReferenceLayerProvider that enforces cardinality."
+#: ./profiles/default/types/Cardinality_Constraint.xml:7
+msgid "help_types_cardinality_constraint"
+msgstr ""
+
+#. Default: "Content Reference Finalizer"
+#: ./profiles/default/types/Content_Reference.xml:4
+msgid "label_types_content_reference_finalizer"
+msgstr ""
+
+#. Default: "PrimaryImplicator and Finalizer that associates a portal object with a reference. I am aware of InverseImplicator and I allow a reference and its inverse to share one portal object. References that I create conform to this module's IContentReference, which derives from Archetypes.interfaces.referenceengine.IContentReference."
+#: ./profiles/default/types/Content_Reference.xml:
+msgid "help_types_content_reference_finalizer"
+msgstr ""
+
+#. Default: "Interface Constraint"
+#: ./profiles/default/types/Interface_Constraint.xml:4
+msgid "label_types_interface_constraint"
+msgstr ""
+
+#. Default: "A validator and vocabulary provider, restricting sources and targets by interfaces they implement."
+#: ./profiles/default/types/Interface_Constraint.xml:6
+msgid "help_types_interface_constraint"
+msgstr ""
+
+#. Default: "Inverse Implicator"
+#: ./profiles/default/types/Inverse_Implicator.xml:4
+msgid "label_types_inverse_implicator"
+msgstr ""
+
+#. Default: "Implicator that creates a reference from target to source."
+#: ./profiles/default/types/Inverse_Implicator.xml:6
+msgid "help_types_inverse_implicator"
+msgstr ""
+
+#. Default: "Relations Library"
+#: ./profiles/default/types/Relations_Library.xml:4
+msgid "label_types_relations_library"
+msgstr ""
+
+#. Default: "Registry for IRulesets. See ILibrary."
+#: ./profiles/default/types/Relations_Library.xml:5
+msgid "help_types_relations_library"
+msgstr ""
+
+#. Default: "About"
+#: ./schema.py:27
+msgid "label_relation_about"
+msgstr ""
+
+#. Default: "Information about this Ruleset"
+#: ./schema.py:29
+msgid "help_relation_about"
+msgstr ""
+
+#. Default: "Minimum Source Cardinality"
+#: ./components/cardinality.py:73
+msgid "label_relation_minsrccardinality"
+msgstr ""
+
+#. Default: "Information about minimum source cardinality"
+#: ./components/cardinality.py:75
+msgid "help_relation_minsrccardinality"
+msgstr ""
+
+#. Default: "Maximum Source Cardinality"
+#: ./components/cardinality.py:79
+msgid "label_relation_maxsrccardinality"
+msgstr ""
+
+#. Default: "Information about maximum source cardinality"
+#: ./components/cardinality.py:81
+msgid "help_relation_maxsrccardinality"
+msgstr ""
+
+#. Default: "Minimum Target Cardinality"
+#: ./components/cardinality.py:85
+msgid "label_relation_mintargcardinality"
+msgstr ""
+
+#. Default: "Information about minimum target cardinality"
+#: ./components/cardinality.py:87
+msgid "help_relation_mintargcardinality"
+msgstr ""
+
+#. Default: "Maximum Target Cardinality"
+#: ./components/cardinality.py:91
+msgid "label_relation_maxtargcardinality"
+msgstr ""
+
+#. Default: "Information about maximum target cardinality"
+#: ./components/cardinality.py:93
+msgid "help_relation_maxtargcardinality"
+msgstr ""
+
+#. Default: "Portal Type"
+#: ./components/contentreference.py:188
+msgid "label_relation_portaltype"
+msgstr ""
+
+#. Default: "Select a Portal Type from the list."
+#: ./components/contentreference.py:190
+msgid "help_relation_portaltype"
+msgstr ""
+
+#. Default: "Share with Inverse?"
+#: ./components/contentreference.py:196
+msgid "label_relation_shareinverse"
+msgstr ""
+
+#. Default: "Is Primary?"
+#: ./components/contentreference.py:204
+msgid "label_relation_primary"
+msgstr ""
+
+#. Default: "Allowed Source Interfaces"
+#: ./components/types.py:110
+msgid "label_relation_allowsrcinterface"
+msgstr ""
+
+#. Default: "Allowed Target Interfaces"
+#: ./components/types.py:116
+msgid "label_relation_allowtarginterface"
+msgstr ""
+
+#. Default: "Allowed Source Types"
+#: ./components/types.py:68
+msgid "label_relation_allowsrctypes"
+msgstr ""
+
+#. Default: "Allowed Target Types"
+#: ./components/types.py:77
+msgid "label_relation_allowtargtypes"
+msgstr ""
+
+#. Default: "Inverse Ruleset"
+#: ./components/inverse.py:52
+msgid "label_relation_inverseruleset"
+msgstr ""
+
