@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <object name="Content Reference" meta_type="Factory-based Type Information"
-   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
- <property name="title">Content Reference Finalizer</property>
+   i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <property name="title" i18n:translate="">Content Reference Finalizer</property>
  <property
-    name="description">PrimaryImplicator and Finalizer that associates a portal object
+    name="description" i18n:translate="">PrimaryImplicator and Finalizer that associates a portal object
       with a reference.
   
       I am aware of InverseImplicator and I allow a reference and its
@@ -27,22 +27,25 @@
  <alias from="properties" to="base_metadata"/>
  <alias from="view" to="(Default)"/>
  <action title="View" action_id="view" category="object" condition_expr=""
-    url_expr="string:${object_url}/view" visible="True">
+    url_expr="string:${object_url}/view" visible="True"
+    i18n:attributes="title">
   <permission value="View"/>
  </action>
  <action title="Edit" action_id="edit" category="object"
     condition_expr="not:object/@@plone_lock_info/is_locked_for_current_user"
-    url_expr="string:${object_url}/edit" visible="True">
+    url_expr="string:${object_url}/edit" visible="True"
+    i18n:attributes="title">
   <permission value="Modify portal content"/>
  </action>
  <action title="Properties" action_id="metadata" category="object"
     condition_expr="" url_expr="string:${object_url}/properties"
-    visible="True">
+    visible="True" i18n:attributes="title">
   <permission value="Modify portal content"/>
  </action>
  <action title="References" action_id="references" category="object"
     condition_expr="object/archetype_tool/has_graphviz"
-    url_expr="string:${object_url}/reference_graph" visible="True">
+    url_expr="string:${object_url}/reference_graph" visible="True"
+    i18n:attributes="title">
   <permission value="Modify portal content"/>
   <permission value="Review portal content"/>
  </action>
