@@ -1,0 +1,158 @@
+# translation of Relations-plone-es.po to Spanish
+# Leonardo Caballero <leonardocaballero@gmail.com>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: Relations-es\n"
+"POT-Creation-Date: 2009-01-23 06:43-0430\n"
+"PO-Revision-Date: 2009-01-26 10:28-0430\n"
+"Last-Translator: Leonardo Caballero <leonardocaballero@gmail.com>\n"
+"Language-Team: Plone Cono Sur <plone-conosur@lists.plone.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n!=1\n"
+"Language-Code: es\n"
+"Language-Name: Spanish\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: Relations\n"
+"X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Default: ""
+#: ./skins/relations/relations_form.pt:13
+msgid "label_relationsform_overview"
+msgstr "Relaciones: Introducción"
+
+#. Default: "This area shows you existing references.  You may also want to <a href="" tal:attributes="href string:${here/absolute_url}/relations_adddelete">add and delete</a> references."
+#: ./skins/relations/relations_form.pt:15
+msgid "help_relationsform_overview"
+msgstr ""
+"        Esta área muestra sus referencias existentes.  Usted tal ves también quisiera "
+"        <a href=\"\" tal:attributes=\"href string:${here/absolute_url}/relations_adddelete\">agregar y eliminar</a>"
+"        referencias."
+
+#. Default: "Add and Delete References for <span tal:replace="here/title_or_id" />"
+#: ./skins/relations/relations_adddelete.cpt:16
+msgid "label_relationsadddel_references"
+msgstr "Agregar y eliminar referencias por <span tal:replace=\"here/title_or_id\" />"
+
+#. Default: "Validation error output"
+#: ./skins/relations/relations_adddelete.cpt:40
+msgid "label_relationsadddel_valida_error"
+msgstr "Error de validación"
+
+#. Default: "Cancel"
+#: ./skins/relations/relations_adddelete.cpt:73
+msgid "label_relationsadddel_cancel"
+msgstr "Cancelar"
+
+#. Default: "Relations: Import"
+#: ./skins/relations/relations_imexport.pt:13
+msgid "label_relationsimexport_import"
+msgstr "Relaciones: Importar"
+
+#. Default: "Relations: Export"
+#: ./skins/relations/relations_imexport.pt:22
+msgid "label_relationsimexport_export"
+msgstr "Relaciones: Exportar"
+
+#. Default: "Export all rulesets"
+#: ./skins/relations/relations_imexport.pt:24
+msgid "label_relationsimexport_export_all"
+msgstr "Exportar todas las reglas definidas"
+
+#. Default: "About"
+#: ./schema.py:27
+msgid "label_relation_about"
+msgstr "A cerca de"
+
+#. Default: "Information about this Ruleset"
+#: ./schema.py:29
+msgid "help_relation_about"
+msgstr "Información a cerca de esta regla definida"
+
+#. Default: "Minimum Source Cardinality"
+#: ./components/cardinality.py:73
+msgid "label_relation_minsrccardinality"
+msgstr "Cardinalidad mínima de origen"
+
+#. Default: "Information about minimum source cardinality"
+#: ./components/cardinality.py:75
+msgid "help_relation_minsrccardinality"
+msgstr "Información a acera de la cardinalidad mínima de origen"
+
+#. Default: "Maximum Source Cardinality"
+#: ./components/cardinality.py:79
+msgid "label_relation_maxsrccardinality"
+msgstr "Cardinalidad máxima de origen"
+
+#. Default: "Information about maximum source cardinality"
+#: ./components/cardinality.py:81
+msgid "help_relation_maxsrccardinality"
+msgstr "Información a acera de la cardinalidad máxima de origen"
+
+#. Default: "Minimum Target Cardinality"
+#: ./components/cardinality.py:85
+msgid "label_relation_mintargcardinality"
+msgstr "Cardinalidad mínima de destino"
+
+#. Default: "Information about minimum target cardinality"
+#: ./components/cardinality.py:87
+msgid "help_relation_mintargcardinality"
+msgstr "Información a acera de la cardinalidad mínima de destino"
+
+#. Default: "Maximum Target Cardinality"
+#: ./components/cardinality.py:91
+msgid "label_relation_maxtargcardinality"
+msgstr "Cardinalidad máxima de destino"
+
+#. Default: "Information about maximum target cardinality"
+#: ./components/cardinality.py:93
+msgid "help_relation_maxtargcardinality"
+msgstr "Información a acera de la cardinalidad máxima de destino"
+
+#. Default: "Portal Type"
+#: ./components/contentreference.py:188
+msgid "label_relation_portaltype"
+msgstr "Tipos de portal"
+
+#. Default: "Select a Portal Type from the list."
+#: ./components/contentreference.py:190
+msgid "help_relation_portaltype"
+msgstr "Seleccione un tipo de portal desde la lista."
+
+#. Default: "Share with Inverse?"
+#: ./components/contentreference.py:196
+msgid "label_relation_shareinverse"
+msgstr "¿Compartir con Inverso?"
+
+#. Default: "Is Primary?"
+#: ./components/contentreference.py:204
+msgid "label_relation_primary"
+msgstr "¿Es primario?"
+
+#. Default: "Allowed Source Interfaces"
+#: ./components/types.py:110
+msgid "label_relation_allowsrcinterface"
+msgstr "Interfaces de orígenes permitidas"
+
+#. Default: "Allowed Target Interfaces"
+#: ./components/types.py:116
+msgid "label_relation_allowtarginterface"
+msgstr "Interfaces de destino permitidas"
+
+#. Default: "Allowed Source Types"
+#: ./components/types.py:68
+msgid "label_relation_allowsrctypes"
+msgstr "Tipos de orígenes permitidas"
+
+#. Default: "Allowed Target Types"
+#: ./components/types.py:77
+msgid "label_relation_allowtargtypes"
+msgstr "Tipos de destino permitidas"
+
+#. Default: "Inverse Ruleset"
+#: ./components/inverse.py:52
+msgid "label_relation_inverseruleset"
+msgstr "Reglas definidas inversas"
+

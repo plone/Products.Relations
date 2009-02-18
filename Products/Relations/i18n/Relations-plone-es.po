@@ -1,0 +1,128 @@
+# translation of Relations-plone-es.po to Spanish
+# Leonardo Caballero <leonardocaballero@gmail.com>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: Relations-plone-es\n"
+"POT-Creation-Date: 2009-01-23 06:43-0430\n"
+"PO-Revision-Date: 2009-02-13 06:52-0430\n"
+"Last-Translator: Leonardo Caballero <leonardocaballero@gmail.com>\n"
+"Language-Team: Spanish <plone-conosur@lists.plone.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Language-Code: es\n"
+"Language-Name: Spanish\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+"X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Default: "Relations: Library"
+#: ./profiles/default/actionicons.xml:5
+#: ./profiles/default/controlpanel.xml:3
+msgid "Relations: Library"
+msgstr "Relaciones: Librería"
+
+#. Default: "Relations"
+#: ./profiles/default/actions.xml:6
+msgid "label_profiles_default"
+msgstr "Relaciones"
+
+#. Default: "Cardinality Constraint"
+#: ./profiles/default/types/Cardinality_Constraint.xml:5
+msgid "Cardinality Constraint"
+msgstr "Restricción de cardinalidad"
+
+#. Default: "An IValidator and IReferenceLayerProvider that enforces cardinality."
+#: ./profiles/default/types/Cardinality_Constraint.xml:7
+msgid "An IValidator and IReferenceLayerProvider that enforces cardinality."
+msgstr "Una interfaz de validación (IValidator) y la interfaz de proveedor de referencia de capa (IReferenceLayerProvider)."
+
+#. Default: "Content Reference Finalizer"
+#: ./profiles/default/types/Content_Reference.xml:4
+msgid "Content Reference Finalizer"
+msgstr "Contenido de referencia Finalizer"
+
+#. Default: "PrimaryImplicator and Finalizer that associates a portal object with a reference. I am aware of InverseImplicator and I allow a reference and its inverse to share one portal object. References that I create conform to this module's IContentReference, which derives from Archetypes.interfaces.referenceengine.IContentReference."
+#: ./profiles/default/types/Content_Reference.xml:6
+msgid ""
+"PrimaryImplicator and Finalizer that associates a portal object"
+"with a reference."
+"I am aware of InverseImplicator and I allow a reference and its"
+"inverse to share one portal object."
+"References that I create conform to this module's"
+"IContentReference, which derives from"
+"Archetypes.interfaces.referenceengine.IContentReference."
+msgstr ""
+"PrimaryImplicator y Finalizer que asocia un objeto de portal "
+"con una referencia. "
+"Yo soy consciente de InverseImplicator y yo permito una referencia y su "
+"inversa para compartir un objeto de portal. "
+"Referencias que yo creo se ajustan a la presente módulo de "
+"IContentReference, que se deriva de Archetypes.interfaces.referenceengine.IContentReference."
+
+#. Default: "Interface Constraint"
+#: ./profiles/default/types/Interface_Constraint.xml:4
+msgid "Interface Constraint"
+msgstr "Restricción de Interfaz"
+
+#. Default: "A validator and vocabulary provider, restricting sources and targets by interfaces they implement."
+#: ./profiles/default/types/Interface_Constraint.xml:6
+msgid ""
+"A validator and vocabulary provider, restricting sources and targets"
+"by interfaces they implement."
+msgstr "Un validador de proveedor y el vocabulario, restringiendo los orígenes y los destinos por las interfaces que ellos implementan. "
+
+#. Default: "Inverse Implicator"
+#: ./profiles/default/types/Inverse_Implicator.xml:4
+msgid "Inverse Implicator"
+msgstr "Implementación inverso"
+
+#. Default: "Implicator that creates a reference from target to source."
+#: ./profiles/default/types/Inverse_Implicator.xml:6
+msgid "Implicator that creates a reference from target to source."
+msgstr "Implementación que crea un referencia desde el blanco al origén."
+
+#. Default: "Relations Library"
+#: ./profiles/default/types/Relations_Library.xml:4
+msgid "Relations Library"
+msgstr "Librería de Relaciones"
+
+#. Default: "Registry for IRulesets. See ILibrary."
+#: ./profiles/default/types/Relations_Library.xml:5
+msgid "Registry for IRulesets. See ILibrary."
+msgstr "Registrada por la interfaz de reglas definidas (IRulesets). Ver la interfaz de la librería (ILibrary)."
+
+#. Default: "Ruleset"
+#: ./profiles/default/types/Ruleset.xml:4
+msgid "Ruleset"
+msgstr "Reglas definidas"
+
+#. Default: "See IRuleset."
+#: ./profiles/default/types/Ruleset.xml:5
+msgid "See IRuleset."
+msgstr "Ver interfaz de las reglas definidas (IRuleset)."
+
+#. Default: "Ruleset Collection"
+#: ./profiles/default/types/Ruleset_Collection.xml:4
+msgid "Ruleset Collection"
+msgstr "Colección de reglas definidas"
+
+#. Default: "A container for IRulesets that lives inside the library."
+#: ./profiles/default/types/Ruleset_Collection.xml:6
+msgid "A container for IRulesets that lives inside the library."
+msgstr "Es un contenedor para la interfaz de reglas definidas (IRulesets) que vive dentro de la librería."
+
+#. Default: "Portal Type Constraint"
+#: ./profiles/default/types/Type_Constraint.xml:4
+msgid "Portal Type Constraint"
+msgstr "Restricción de tipo de portal"
+
+#. Default: "A validator and vocabulary provider, restricting sources and targets by portal type."
+#: ./profiles/default/types/Type_Constraint.xml:6
+msgid ""
+"A validator and vocabulary provider, restricting sources and targets"
+"by portal type."
+msgstr "Un validador de proveedor y el vocabulario, restringiendo los orígenes y los destinos para los tipos de portal."
+
