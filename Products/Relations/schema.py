@@ -23,7 +23,12 @@ def RulesetSchema():
                    allowable_content_types = ('text/structured',
                                               'text/restructured',
                                               'text/plain-pre'),
-                   widget=TextAreaWidget(rows=8))
+                   widget=TextAreaWidget(rows=8, 
+                                       label='About',
+                                       label_msgid='label_relation_about',
+                                       description="Information about this Ruleset",
+                                       description_msgid='help_relation_about',
+                                       i18n_domain='Relations',),)
 
     schema.addField(cf)
 
