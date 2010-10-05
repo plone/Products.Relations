@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from zope.interface import implements
+
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.public import *
 from Products.Archetypes.exceptions import ReferenceException
@@ -9,9 +11,7 @@ from Products.Relations.schema import BaseSchemaWithInvisibleId
 
 class CardinalityConstraint(BaseContent, ruleset.RuleBase):
     """An IValidator and IReferenceLayerProvider that enforces cardinality."""
-    __implements__ = BaseContent.__implements__ + \
-                     (interfaces.IValidator,
-                      interfaces.IReferenceLayerProvider)
+    implements(interfaces.IValidator, interfaces.IReferenceLayerProvider)
 
     content_icon = 'cardinalityconstraint_icon.gif'
 
@@ -96,11 +96,11 @@ class CardinalityConstraint(BaseContent, ruleset.RuleBase):
         ))
     portal_type = 'Cardinality Constraint'
 
-registerType(CardinalityConstraint)
+registerType(CardinalityConstraint, PROJECTNAME)
 
 
 class CardinalityReferenceLayer:
-    __implements__ = interfaces.IReferenceLayerProvider,
+    implements(interfaces.IReferenceLayerProvider)
 
     def __init__(self, ruleset, cc):
         self.ruleset = ruleset

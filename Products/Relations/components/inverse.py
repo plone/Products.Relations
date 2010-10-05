@@ -1,3 +1,5 @@
+from zope.interface import implements
+
 from Acquisition import ImplicitAcquisitionWrapper, aq_parent
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.public import *
@@ -13,7 +15,7 @@ _proc_marker_attr = '_v_relations_process_invref'
 
 class InverseImplicator(BaseContent, ruleset.RuleBase):
     """Implicator that creates a reference from target to source."""
-    __implements__ = (interfaces.IImplicator,) + BaseContent.__implements__
+    implements(interfaces.IImplicator)
 
     content_icon = 'inverseimplicator_icon.gif'
 
@@ -67,7 +69,7 @@ class InverseImplicator(BaseContent, ruleset.RuleBase):
         else:
             return None
 
-registerType(InverseImplicator)
+registerType(InverseImplicator, PROJECTNAME)
                        
         
 

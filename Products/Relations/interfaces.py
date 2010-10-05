@@ -6,8 +6,7 @@ Unless explicitely stated otherwise, source and target arguments must be of
 type IBrainAggregate, which comprises all information available from catalogs
 on an object.
 """
-
-from Interface import Interface, Attribute
+from zope.interface import Interface, Attribute
 from Products.Archetypes.interfaces.referenceengine import IReference
 
 

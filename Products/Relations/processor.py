@@ -1,3 +1,5 @@
+from zope.interface import implements
+
 import transaction
 
 from AccessControl import ModuleSecurityInfo
@@ -14,7 +16,7 @@ from zope.event import notify
 modulesec = ModuleSecurityInfo('Products.Relations.processor')
 
 class Chain(dict):
-    __implements__ = interfaces.IChain,
+    implements(interfaces.IChain)
     
     def __init__(self):
         self.added = []
@@ -27,11 +29,11 @@ class Chain(dict):
 
 
 
-# module implements the interface
-__implements__ = interfaces.IReferenceConnectionProcessor,
 
 modulesec.declarePublic('process')
 def process(context, connect=(), disconnect=()):
+    # module implements the interface
+    implements(interfaces.IReferenceConnectionProcessor)
     sp = transaction.savepoint()
     try:
         return _process(context, connect, disconnect)
