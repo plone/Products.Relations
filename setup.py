@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.9b1'
+version = '0.9b2'
 
 setup(name='Products.Relations',
       version=version,
