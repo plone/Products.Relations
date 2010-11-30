@@ -15,6 +15,10 @@ import Products.Relations.interfaces as interfaces
 import Products.Relations.brain as brain
 import Products.Relations.ruleset as rulesetmodule
 import Products.Relations.processor as processor
+from Products.Relations import implementedOrProvidedBy
+from zope.interface import implements
+
+from AccessControl import Unauthorized
 
 import common
 common.installWithinPortal()
@@ -64,7 +68,7 @@ class TestLibrary(PloneTestCase.PloneTestCase):
         lib = self.library.getFolder()
         lib.invokeFactory('Ruleset', 'allowed')
         # wrong place
-        self.assertRaises(ValueError,
+        self.assertRaises((Unauthorized, ValueError),
                           self.folder.invokeFactory,
                           'Ruleset', 'disallowed')
         # wrong type
@@ -73,78 +77,7 @@ class TestLibrary(PloneTestCase.PloneTestCase):
                           'SimpleType', 'disallowed')
         self.logout()
     
-    ## TODO:
-    ##  rework this test to comply with current permissions settings for Products.Relations action
-    def testActions(self):
-        # test registration as ActionProvider and the action we define
-
-        at = getToolByName(self.portal, 'portal_actions')
-
-        def hasaction(obj):
-            category = 'object'
-            filtered_actions = at.listFilteredActionsFor(obj)
-            if category not in filtered_actions.keys():
-                return False
-            for action in filtered_actions[category]:
-                if action['id'] == 'relations':
-                    return action
-            return False
-
-        ## No, that's not supposed to happen anymore
-        ## all actions are registered with the actions, types, or
-        ## workflow tool from CMF 2.0 onwards
-        # self.assert_(RELATIONS_LIBRARY in at.listActionProviders())
-
-        # There's no action because there's no vocabularies
-        self.assert_(not hasaction(self.library))
-
-        # We add a ruleset and a corresponding reference.
-        self.loginAsPortalOwner()
-        f = self.library.getFolder()
-        f.invokeFactory('Ruleset', 'samerel')
-
-        self.library.addReference(self.library, 'samerel')
-        self.logout(); self.login()
-
-        # Not there, ruleset needs to be published.
-        self.assert_(not hasaction(self.library))
-
-        self.loginAsPortalOwner()
-        self.portal.portal_workflow.doActionFor(f.samerel, 'publish')
-        self.logout(); self.login()
-
-        # Still not there, we need 'Modify portal content' on the object...
-        self.assert_(not hasaction(self.library))        
-
-        # ... which we get now.
-        self.loginAsPortalOwner()
-        self.assert_(hasaction(self.library), "'relations' action n/a")
-        self.logout(); self.login()
-
-        # What we do here is test our action's condition in cases where context
-        # is not a Referenceable.
-        self.assert_(not hasaction(self.folder))
-
-        # We create a folder which is referenceable. Inside this folder, we
-        # create a document which is not.
-        # We want to make sure that in the context of document we don't acquire
-        # the folder's vocabulary.
-
-        # XXX: Document is referenceable, need to find something
-        # that's not referenceable.
-##         self.folder.invokeFactory('SimpleFolder', 'somefolder')
-##         sf = self.folder.somefolder
-##         sf.invokeFactory('Document', 'somedocument')
-##         sd = sf.somedocument
-##         self.assertEquals(sd.UID(), sf.UID())
-
-##         sf.addReference(sf, 'samerel')
-##         action = hasaction(sf)
-##         self.assert_(action)
-
-##         self.assert_(not hasaction(sd),
-##                      "%r has acquired vocabulary of %r" % (sd, sf))
-
+        
     def testRenameLibrary(self):
         self.loginAsPortalOwner()
         rename = self.portal.manage_renameObject
@@ -180,7 +113,7 @@ class TestLibrary(PloneTestCase.PloneTestCase):
 # A dummy component that implements all interfaces and stores argument values
 # to its methods inside self.calls, a dict that's keyed by methodnames.
 class DummyComponent(SimpleItem, rulesetmodule.RuleBase):
-    __implements__ = (interfaces.IVocabularyProvider,
+    implements(interfaces.IVocabularyProvider,
                       interfaces.IPrimaryImplicator,
                       interfaces.IImplicator,
                       interfaces.IValidator,
@@ -347,14 +280,14 @@ class TestRuleset(PloneTestCase.PloneTestCase):
         # components that we may add.
         self.assert_(len(types) > 0)
         for ti in types:
-            self.assert_(icmfcore.ITypeInformation.providedBy(ti),
+            self.assert_(implementedOrProvidedBy(icmfcore.ITypeInformation, ti),
                          "%s not a type information." % ti)
 
     def testInvokeFactory(self):
         ti = self.ruleset.allowedContentTypes()[0]
         self.ruleset.invokeFactory(ti.id, 'allowed')
         # wrong place
-        self.assertRaises(ValueError,
+        self.assertRaises((Unauthorized, ValueError),
                           self.folder.invokeFactory,
                           ti.id, 'disallowed')
         # wrong type

@@ -8,12 +8,19 @@ from Products.Relations.config import *
 from Products.Relations import interfaces, ruleset, utils
 from Products.Relations.schema import BaseSchemaWithInvisibleId
 
+# Maybe some day we will get consistency on how implements works
+# so that we don't have to do this - cwarner
+from zope.interface import implements
+from Products.Archetypes.interfaces import IBaseContent
+from Products.Archetypes.interfaces import IReferenceable
+from Products.Archetypes.interfaces import IExtensibleMetadata
+
 _invref_attr = '_relations_invref_uid'
 _proc_marker_attr = '_v_relations_process_invref'
 
 class InverseImplicator(BaseContent, ruleset.RuleBase):
     """Implicator that creates a reference from target to source."""
-    __implements__ = (interfaces.IImplicator,) + BaseContent.__implements__
+    implements(interfaces.IImplicator, IBaseContent, IReferenceable, IExtensibleMetadata)
 
     content_icon = 'inverseimplicator_icon.gif'
 
@@ -67,8 +74,7 @@ class InverseImplicator(BaseContent, ruleset.RuleBase):
         else:
             return None
 
-registerType(InverseImplicator)
-                       
+registerType(InverseImplicator, PROJECTNAME)                       
         
 
     

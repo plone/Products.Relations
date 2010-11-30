@@ -7,11 +7,18 @@ from Products.Relations import exception, interfaces, ruleset
 from Products.Relations.config import *
 from Products.Relations.schema import BaseSchemaWithInvisibleId
 
+# Maybe some day we will get consistency on how implements works
+# so that we don't have to do this - cwarner
+from zope.interface import implements
+from Products.Archetypes.interfaces import IBaseContent
+from Products.Archetypes.interfaces import IReferenceable
+from Products.Archetypes.interfaces import IExtensibleMetadata
+
+
 class CardinalityConstraint(BaseContent, ruleset.RuleBase):
     """An IValidator and IReferenceLayerProvider that enforces cardinality."""
-    __implements__ = BaseContent.__implements__ + \
-                     (interfaces.IValidator,
-                      interfaces.IReferenceLayerProvider)
+    implements(IBaseContent, IReferenceable, IExtensibleMetadata, interfaces.IValidator,
+               interfaces.IReferenceLayerProvider)
 
     content_icon = 'cardinalityconstraint_icon.gif'
 
@@ -96,11 +103,11 @@ class CardinalityConstraint(BaseContent, ruleset.RuleBase):
         ))
     portal_type = 'Cardinality Constraint'
 
-registerType(CardinalityConstraint)
+registerType(CardinalityConstraint, PROJECTNAME)
 
 
 class CardinalityReferenceLayer:
-    __implements__ = interfaces.IReferenceLayerProvider,
+    implements(interfaces.IReferenceLayerProvider,)
 
     def __init__(self, ruleset, cc):
         self.ruleset = ruleset

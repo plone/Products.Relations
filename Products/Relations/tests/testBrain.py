@@ -4,7 +4,7 @@ if __name__ == '__main__':
 
 from Products.PloneTestCase import PloneTestCase
 
-from Interface.Verify import verifyObject
+from zope.interface.verify import verifyObject
 
 import Products.Relations.interfaces as interfaces
 import Products.Relations.brain as brain

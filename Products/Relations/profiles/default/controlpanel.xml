@@ -3,7 +3,9 @@
     i18n:domain="Relations">
  <configlet title="Relations: Library" action_id="relations_library"
     appId="Products.Relations" category="Products" condition_expr=""
-    url_expr="string:${portal_url}/relations_library/" visible="True" i18n:attributes="title">
+    url_expr="string:${portal_url}/relations_library/" visible="True"
+    icon_expr="string:$portal_url/book_icon.gif"
+    i18n:attributes="title">
   <permission>Manage portal</permission>
  </configlet>
 </object>

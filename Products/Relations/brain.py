@@ -1,13 +1,16 @@
 from AccessControl import ModuleSecurityInfo
 from Acquisition import aq_base
 from Globals import InitializeClass
-from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.ReferenceEngine import Reference
 from Products.Archetypes.utils import shasattr
+from Products.CMFCore.utils import getToolByName
+from zope.interface import implements
 
-from config import *
-import brain
-import interfaces
+from Products.Relations import implementedOrProvidedBy
+from Products.Relations.interfaces import IBrainAggregate, IReferenceWithBrains
+from zope.interface import classImplements
+
+from Products.Relations.config import *
 
 modulesec = ModuleSecurityInfo('Products.Relations.brain')
 modulesec.declarePublic('makeBrainAggregate')
@@ -18,7 +21,7 @@ class BrainAggregate:
     """Catalog brain kind of object that aggregates metadata from multiple
     catalogs."""
 
-    __implements__ = interfaces.IBrainAggregate,
+    implements(IBrainAggregate,)
     __allow_access_to_unprotected_subobjects__ = 1
 
     def __init__(self, brain, sources):
@@ -44,7 +47,7 @@ class BrainAggregate:
                (self.brain.UID, self.brain.getPath())
 
     def __eq__(self, other):
-        if interfaces.IBrainAggregate.isImplementedBy(other):
+        if implementedOrProvidedBy(IBrainAggregate, other):
             return self.brain.UID == other.brain.UID and \
                    self.sources == other.sources
 
@@ -54,7 +57,7 @@ def makeBrainAggregate(context, obj):
     obj may be either a UID string, a brain of uid_catalog or an aggregated
     brain."""
 
-    if interfaces.IBrainAggregate.isImplementedBy(obj):
+    if implementedOrProvidedBy(IBrainAggregate, obj):
         return obj
     elif isinstance(obj, type('')): # assume a UID
         return makeBrainAggrFromUID(context, obj)
@@ -95,17 +98,22 @@ def makeBrainAggrFromBrain(context, brain, catalogs=None):
     return aggr
 
 class ReferenceWithBrains(Reference):
-    __implements__ = interfaces.IReferenceWithBrains
+    pass
+    
+try:
+    classImplements(ReferenceWithBrains, IReferenceWithBrains)
+except TypeError:
+    ReferenceWithBrains.__implements__ = (IReferenceWithBrains,)
 
-# These proxy methods all make use of a volatile attribute to store their value
+# # These proxy methods all make use of a volatile attribute to store their value
 # The dict maps method names, e.g. 'getSourceBrain', to functions that produce
 # the value.
 proxies = {
     'getSourceBrain':
-    lambda self: brain.makeBrainAggregate(self, self.sourceUID),
+    lambda self: makeBrainAggregate(self, self.sourceUID),
            
     'getTargetBrain':
-    lambda self: brain.makeBrainAggregate(self, self.targetUID),
+    lambda self: makeBrainAggregate(self, self.targetUID),
 
     'getSourceObject':
     lambda self: Reference.getSourceObject(self),

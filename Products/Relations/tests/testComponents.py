@@ -9,7 +9,7 @@ from Products.CMFCore.utils import getToolByName
 
 from Products.Relations.config import *
 from Products.Relations import brain, exception, processor
-
+from Products.Relations import implementedOrProvidedBy
 import common
 common.installWithinPortal()
 
@@ -111,7 +111,7 @@ class TestInterfaceConstraint(PloneTestCase.PloneTestCase):
         # make list
         brains = self.ic.makeVocabulary(self.brains[0], None)
         for obj in [b.getObject() for b in brains]:
-            self.assert_(IBaseFolder.isImplementedBy(obj))
+            self.assert_(implementedOrProvidedBy(IBaseFolder, obj))
 
         # disallowed source interface
         self.ic.setAllowedSourceInterfaces(['IFooBar'])
@@ -123,7 +123,7 @@ class TestInterfaceConstraint(PloneTestCase.PloneTestCase):
         self.ic.setAllowedSourceInterfaces(['IReferenceable', 'IBaseFolder'])
         brains = self.ic.makeVocabulary(self.brains[0], None)
         for obj in [b.getObject() for b in brains]:
-            self.assert_(IBaseFolder.isImplementedBy(obj))
+            self.assert_(implementedOrProvidedBy(IBaseFolder, obj))
 
     def testValidateConnected(self):
         triples = (self.brains[0].UID, self.brains[1].UID,
@@ -401,8 +401,8 @@ class TestContentReferenceFinalizer(PloneTestCase.PloneTestCase):
         r2 = self.reflookup(tUID, sUID, self.ruleset2.getId())
 
         # Make sure both are of type IContentReference
-        self.assert_(contentreference.IContentReference.isImplementedBy(r1))
-        self.assert_(contentreference.IContentReference.isImplementedBy(r2))
+        self.assert_(implementedOrProvidedBy(contentreference.IContentReference, r1))
+        self.assert_(implementedOrProvidedBy(contentreference.IContentReference, r2))
 
         self.assertEquals(r1.getContentObject(), r2.getContentObject())
 

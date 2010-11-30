@@ -19,7 +19,8 @@ def installWithinPortal():
     from Products.Archetypes.tests import attestcase
     
     installProducts()
-    PloneTestCase.setupPloneSite(products=product_dependencies)
+    PloneTestCase.setupPloneSite(products=product_dependencies, 
+        extension_profiles=('Products.Archetypes:Archetypes_sampletypes',))
 
 def createObjects(testcase, names):
     """Given a testname and a list of portal types "names", I will create

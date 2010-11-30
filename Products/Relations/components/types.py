@@ -7,11 +7,19 @@ from Products.Relations import brain, exception, ruleset, interfaces, utils
 from Products.Relations.config import *
 from Products.Relations.schema import BaseSchemaWithInvisibleId
 
+# Maybe some day we will get consistency on how implements works
+# so that we don't have to do this - cwarner
+from zope.interface import implements
+from Products.Archetypes.interfaces import IBaseContent
+from Products.Archetypes.interfaces import IReferenceable
+from Products.Archetypes.interfaces import IExtensibleMetadata
+
+
 class PortalTypeConstraint(BaseContent, ruleset.RuleBase):
     """A validator and vocabulary provider, restricting sources and targets
     by portal type."""
-    __implements__ = (interfaces.IVocabularyProvider, interfaces.IValidator) +\
-                     BaseContent.__implements__
+    implements(interfaces.IVocabularyProvider, interfaces.IValidator,
+            IBaseContent, IReferenceable, IExtensibleMetadata)
 
     content_icon = 'portaltypeconstraint_icon.gif'
 
@@ -86,7 +94,7 @@ class PortalTypeConstraint(BaseContent, ruleset.RuleBase):
         return DisplayList(
             [(pt, pt) for pt in utils.getReferenceableTypes(self)])
 
-registerType(PortalTypeConstraint)
+registerType(PortalTypeConstraint, PROJECTNAME)
 
 class InterfaceConstraint(PortalTypeConstraint):
     """A validator and vocabulary provider, restricting sources and targets
@@ -129,6 +137,5 @@ class InterfaceConstraint(PortalTypeConstraint):
         ))
     archetype_name = portal_type = 'Interface Constraint'
 
-registerType(InterfaceConstraint)
-
+registerType(InterfaceConstraint, PROJECTNAME)
     

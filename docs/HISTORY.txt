@@ -1,3 +1,11 @@
+2010-10-11  Max Burgess (netropic at u dot washington dot edu)
+
+    Removed test for unsupported Relations action tab.
+
+2010-10-11  Eric Steele (ericsteele at psu dot edu)
+
+    Add Plone 4.x compatibility. Product should now work in both 3.x and 4.x
+
 2008-09-10  Cris Ewing (cewing at u dot washington dot edu)
 
     Fixed a bug in the finalizeOnConnect() method of 

@@ -10,11 +10,12 @@ import interfaces
 from events import RelationConnectedEvent
 from events import RelationDisconnectedEvent
 from zope.event import notify
+from zope.interface import implements, classImplements
 
 modulesec = ModuleSecurityInfo('Products.Relations.processor')
 
 class Chain(dict):
-    __implements__ = interfaces.IChain,
+    implements(interfaces.IChain)
     
     def __init__(self):
         self.added = []
@@ -25,10 +26,11 @@ class Chain(dict):
             self[key] = {}
         return dict.__getitem__(self, key)
 
-
-
 # module implements the interface
-__implements__ = interfaces.IReferenceConnectionProcessor,
+try:
+    classImplements(Chain, interfaces.IReferenceConnectionProcessor)
+except TypeError:
+    Chain.__implements__ = (interfaces.IReferenceConnectionProcessor,)
 
 modulesec.declarePublic('process')
 def process(context, connect=(), disconnect=()):

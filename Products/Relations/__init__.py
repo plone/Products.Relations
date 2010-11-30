@@ -7,6 +7,13 @@ from Products.CMFCore.utils import ContentInit
 from Products.CMFCore.DirectoryView import registerDirectory
 registerDirectory(SKINS_DIR, GLOBALS)
 
+# BBB for Z2 vs Z3 interfaces checks, borrowed from Products.PloneFormGen
+def implementedOrProvidedBy(anInterface, anObject):
+    try:
+        return anInterface.providedBy(anObject)
+    except AttributeError:
+        return anInterface.isImplementedBy(anObject)
+
 def initialize(context):
     import ruleset
     import components
@@ -25,3 +32,4 @@ def initialize(context):
 
 import brain, exception, processor, utils # contain ModuleSecurityInfo
 import field # registers field
+

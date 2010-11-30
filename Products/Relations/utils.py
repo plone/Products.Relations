@@ -1,6 +1,6 @@
 from AccessControl import ModuleSecurityInfo
 from Acquisition import aq_base
-from Interface import Implements
+from zope.interface.declarations import Implements
 from OFS.CopySupport import CopySource
 
 from Products.CMFCore.utils import getToolByName
@@ -74,7 +74,7 @@ class AllowedTypesByIface:
         for data in listTypes():
             klass = data['klass']
             for iface in self.allowed_interfaces:
-                if iface.isImplementedByInstancesOf(klass):
+                if iface.implementedBy(klass):
                     ti = pt.getTypeInfo(data['portal_type'])
                     if ti is not None and ti.isConstructionAllowed(self):
                         value.append(ti)
@@ -84,7 +84,7 @@ class AllowedTypesByIface:
         """Does the given portal_type implement one of the given interfaces?"""
         klass = self._getClassByPortalType(portal_type)
         for iface in ifaces:
-            if iface.isImplementedByInstancesOf(klass):
+            if iface.implementedBy(klass):
                 return 1
 
     def _getClassByPortalType(self, name):
@@ -103,20 +103,9 @@ def getPortalTypesByInterfaces(context, allowedIfaces):
     tool = getToolByName(context, 'archetype_tool')
     for data in tool.listRegisteredTypes():
         klass = data['klass']
-        kifaces = klass.__implements__
-
-            
-        # We now flatten the interfaces and get their unqualified names,
-        # e.g. <Products.FooBar.interfaces.ISpam> becomes "ISpam"
-        # we support now both interfaces for zope2 and zope3
-        
-        kifaces_z2 = [str(iface.__name__)
-                   for iface in Implements.flattenInterfaces((kifaces,))]
                    
-        kifaces_z3 = [str(iface.__name__)
+        kifaces = [str(iface.__name__)
                    for iface in interface.implementedBy(klass).flattened()]
-                   
-        kifaces = kifaces_z2 + kifaces_z3
                    
         if [iface for iface in allowedIfaces if iface in kifaces]:
             value.append(data['portal_type'])

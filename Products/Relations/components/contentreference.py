@@ -11,6 +11,16 @@ from Products.Archetypes.utils import shasattr
 from Products.Archetypes.ReferenceEngine import Reference
 from Products.Archetypes.interfaces.referenceengine \
      import IContentReference as IATContentReference
+from Products.Archetypes.interfaces import IReference
+
+# Maybe some day we will get consistency on how implements works
+# so that we don't have to do this - cwarner
+from zope.interface import implements
+from zope.interface import classImplements
+from Products.Archetypes.interfaces import IBaseContent
+from Products.Archetypes.interfaces import IReferenceable
+from Products.Archetypes.interfaces import IExtensibleMetadata
+
 from Products.Archetypes.utils import getRelPath, getRelURL
 
 from Products.Relations.config import *
@@ -33,7 +43,6 @@ class ContentReference(ruleset.RLMWithBrains, PortalFolderBase):
 
     Note that portal objects associated with this reference are identified
     by a reference, not by containment."""
-    __implements__ = Reference.__implements__ + (IContentReference,)
     
     portal_type = meta_type = "Relation ContentReference"
     
@@ -70,6 +79,11 @@ class ContentReference(ruleset.RLMWithBrains, PortalFolderBase):
 
 InitializeClass(ContentReference)
 
+try:
+    classImplements(ContentReference, IContentReference)    
+except TypeError:
+    ContentReference.__implements__ = (IContentReference)
+
 
 def _makeKey(relationship, sUID, tUID, portal_type):
     return "relationship: %s\n" % relationship + \
@@ -92,9 +106,8 @@ class ContentReferenceFinalizer(BaseContent, ruleset.RuleBase):
     References that I create conform to this module's
     IContentReference, which derives from
     Archetypes.interfaces.referenceengine.IContentReference."""
-    __implements__ = (interfaces.IPrimaryImplicator, interfaces.IFinalizer,
-                      interfaces.IReferenceActionProvider) + \
-                     BaseContent.__implements__
+    implements(interfaces.IPrimaryImplicator, interfaces.IFinalizer, interfaces.IReferenceActionProvider,
+               IBaseContent, IReferenceable, IExtensibleMetadata)
 
     def connect(self, source, target, metadata=None):
         impl = ruleset.DefaultPrimaryImplicator(self.getRuleset())
@@ -213,4 +226,4 @@ class ContentReferenceFinalizer(BaseContent, ruleset.RuleBase):
         return DisplayList(
             [(pt, pt) for pt in utils.getReferenceableTypes(self)])
 
-registerType(ContentReferenceFinalizer)
+registerType(ContentReferenceFinalizer, PROJECTNAME)

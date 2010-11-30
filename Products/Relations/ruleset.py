@@ -9,6 +9,7 @@ from OFS.ObjectManager import BeforeDeleteException
 from Products import CMFCore
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.Expression import Expression
+from Products.CMFCore.interfaces import IDynamicType
 from Products.Archetypes.interfaces.referenceable import IReferenceable
 from Products.Archetypes.Referenceable import Referenceable
 from Products.Archetypes.ReferenceEngine import Reference
@@ -16,19 +17,23 @@ from Products.Archetypes.utils import shasattr, getRelURL
 from Products.Archetypes.public import *
 from Products.Archetypes.exceptions import ReferenceException
 from Products.Relations.permissions import ManageContentRelations
+from Products.Relations import implementedOrProvidedBy
+from zope.interface import implements
 from config import *
 import interfaces
 import brain
 import schema
 import utils
+from zope.interface import implements
 
 import logging
 logger = logging.getLogger('Relations')
 
 
 class XMLImportExport:
-    __implements__ = interfaces.IXMLImportExport,
+    implements(interfaces.IXMLImportExport)
 
+    
     schema=Schema((
         StringField('xml',
                     mutator='importXML',
@@ -216,13 +221,13 @@ class RLMWithBrains(ReferenceLayerManager, brain.ReferenceWithBrains):
     pass
 
 class RuleBase(XMLImportExport):
-    __implements__ = interfaces.IRule,
+    implements(interfaces.IRule,)
 
     global_allow = 0 # convenience
     def getRuleset(self): return aq_parent(aq_inner(self))
 
 class DefaultPrimaryImplicator(RuleBase):
-    __implements__ = interfaces.IPrimaryImplicator,
+    implements(interfaces.IPrimaryImplicator,)
 
     referenceClass = RLMWithBrains
 
@@ -249,8 +254,7 @@ class DefaultPrimaryImplicator(RuleBase):
         
 class Ruleset(utils.AllowedTypesByIface, OrderedBaseFolder, XMLImportExport):
     """See IRuleset."""
-    __implements__ = (interfaces.IRuleset,) +\
-                     OrderedBaseFolder.__implements__
+    implements(interfaces.IRuleset, IDynamicType)
 
     schema = schema.RulesetSchema
     portal_type = archetype_name = 'Ruleset'
@@ -265,7 +269,7 @@ class Ruleset(utils.AllowedTypesByIface, OrderedBaseFolder, XMLImportExport):
         """Return a list of objects in self that implement the given
         interface."""
         return [obj for obj in self.objectValues()
-                if interface.isImplementedBy(obj)]
+                if implementedOrProvidedBy(interface,obj)]
 
     def implyOnConnect(self, source, target, chain, metadata=None):
         primaryImplicator = self._getPrimaryImplicator()
@@ -342,7 +346,7 @@ class Ruleset(utils.AllowedTypesByIface, OrderedBaseFolder, XMLImportExport):
             url = getRelURL(aq_parent(aq_inner(ref)), ref.getPhysicalPath())
             ref_ctl.catalog_object(ref, url, idxs=['relationship'])
 
-registerType(Ruleset)
+registerType(Ruleset, PROJECTNAME)
 
 
 class RulesetAwareContainer:
@@ -361,19 +365,19 @@ class RulesetAwareContainer:
         v = super_invokeFactory(self, type_name, id, RESPONSE, *args, **kwargs)
 
         obj = getattr(self, v)
-        if interfaces.IRuleset.isImplementedBy(obj):
+        if implementedOrProvidedBy(interfaces.IRuleset, obj):
 
             library.addReference(obj, RELATIONSHIP_LIBRARY)
         return v
 
     # This hack allows us to inform the ruleset that it has been renamed.
-    def _setObject(self, id, obj, roles=None, user=None, set_owner=1):
+    def _setObject(self, id, obj, roles=None, user=None, set_owner=1, suppress_events=True):
         library = getToolByName(self, RELATIONS_LIBRARY)
         
         super_setObject = OrderedBaseFolder._setObject
         super_setObject(self, id, obj, roles, user, set_owner)
 
-        if interfaces.IRuleset.isImplementedBy(obj):
+        if implementedOrProvidedBy(interfaces.IRuleset, obj):
             ruleset = obj
             ref_ctl = getToolByName(self, REFERENCE_CATALOG)
             brains = ref_ctl(sourceUID=library.UID(),
@@ -388,9 +392,7 @@ class RulesetAwareContainer:
 class Library(RulesetAwareContainer, utils.AllowedTypesByIface,
               OrderedBaseFolder, XMLImportExport):
     """Registry for IRulesets. See ILibrary."""
-    __implements__ = ((interfaces.ILibrary,) +
-                      (OrderedBaseFolder.__implements__, ))
-                      
+    implements(interfaces.ILibrary, IDynamicType)
 
     schema = schema.BaseSchemaWithInvisibleId + XMLImportExport.schema
     portal_type = archetype_name = 'Relations Library'
@@ -452,14 +454,13 @@ class Library(RulesetAwareContainer, utils.AllowedTypesByIface,
     def getFolder(self):
         return self
 
-registerType(Library)
+registerType(Library, PROJECTNAME)
 
 
 class RulesetCollection(RulesetAwareContainer, utils.AllowedTypesByIface,
                         OrderedBaseFolder, XMLImportExport):
     """A container for IRulesets that lives inside the library."""
-    __implements__ = (interfaces.IRulesetCollection,) + \
-                     OrderedBaseFolder.__implements__
+    implements(interfaces.IRulesetCollection, IDynamicType)
 
     schema = schema.BaseSchemaWithInvisibleId + XMLImportExport.schema
     portal_type = archetype_name = 'Ruleset Collection'
@@ -472,4 +473,4 @@ class RulesetCollection(RulesetAwareContainer, utils.AllowedTypesByIface,
             v = v + collection.getRulesets()
         return v
 
-registerType(RulesetCollection)
+registerType(RulesetCollection, PROJECTNAME)
