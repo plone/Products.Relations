@@ -1,8 +1,6 @@
 from xml.dom import minidom
 from sets import Set
 
-from zope.interface import implements
-
 from Acquisition import ImplicitAcquisitionWrapper, aq_parent, aq_inner
 from Globals import InitializeClass
 import zExceptions
@@ -27,8 +25,9 @@ import utils
 import logging
 logger = logging.getLogger('Relations')
 
+
 class XMLImportExport:
-    implements(interfaces.IXMLImportExport),
+    __implements__ = interfaces.IXMLImportExport,
 
     schema=Schema((
         StringField('xml',
@@ -217,13 +216,13 @@ class RLMWithBrains(ReferenceLayerManager, brain.ReferenceWithBrains):
     pass
 
 class RuleBase(XMLImportExport):
-    implements(interfaces.IRule),
+    __implements__ = interfaces.IRule,
 
     global_allow = 0 # convenience
     def getRuleset(self): return aq_parent(aq_inner(self))
 
 class DefaultPrimaryImplicator(RuleBase):
-    implements(interfaces.IPrimaryImplicator),
+    __implements__ = interfaces.IPrimaryImplicator,
 
     referenceClass = RLMWithBrains
 
@@ -250,7 +249,8 @@ class DefaultPrimaryImplicator(RuleBase):
         
 class Ruleset(utils.AllowedTypesByIface, OrderedBaseFolder, XMLImportExport):
     """See IRuleset."""
-    implements(interfaces.IRuleset)
+    __implements__ = (interfaces.IRuleset,) +\
+                     OrderedBaseFolder.__implements__
 
     schema = schema.RulesetSchema
     portal_type = archetype_name = 'Ruleset'
@@ -342,8 +342,7 @@ class Ruleset(utils.AllowedTypesByIface, OrderedBaseFolder, XMLImportExport):
             url = getRelURL(aq_parent(aq_inner(ref)), ref.getPhysicalPath())
             ref_ctl.catalog_object(ref, url, idxs=['relationship'])
 
-registerType(Ruleset, PROJECTNAME)
-
+registerType(Ruleset)
 
 
 class RulesetAwareContainer:
@@ -389,7 +388,8 @@ class RulesetAwareContainer:
 class Library(RulesetAwareContainer, utils.AllowedTypesByIface,
               OrderedBaseFolder, XMLImportExport):
     """Registry for IRulesets. See ILibrary."""
-    implements(interfaces.ILibrary)
+    __implements__ = ((interfaces.ILibrary,) +
+                      (OrderedBaseFolder.__implements__, ))
                       
 
     schema = schema.BaseSchemaWithInvisibleId + XMLImportExport.schema
@@ -452,13 +452,14 @@ class Library(RulesetAwareContainer, utils.AllowedTypesByIface,
     def getFolder(self):
         return self
 
-registerType(Library, PROJECTNAME)
+registerType(Library)
 
 
 class RulesetCollection(RulesetAwareContainer, utils.AllowedTypesByIface,
                         OrderedBaseFolder, XMLImportExport):
     """A container for IRulesets that lives inside the library."""
-    implements(interfaces.IRulesetCollection)
+    __implements__ = (interfaces.IRulesetCollection,) + \
+                     OrderedBaseFolder.__implements__
 
     schema = schema.BaseSchemaWithInvisibleId + XMLImportExport.schema
     portal_type = archetype_name = 'Ruleset Collection'
@@ -471,4 +472,4 @@ class RulesetCollection(RulesetAwareContainer, utils.AllowedTypesByIface,
             v = v + collection.getRulesets()
         return v
 
-registerType(RulesetCollection, PROJECTNAME)
+registerType(RulesetCollection)

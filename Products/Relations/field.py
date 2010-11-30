@@ -12,11 +12,10 @@ from Products.Archetypes.Registry import registerField
 from Products.Archetypes.utils import DisplayList
 from Products.Archetypes import config as atconfig
 
-#try:
-#    from Products.generator import i18n
-#except ImportError:
-#    from Products.Archetypes.generator import i18n
-from zope.i18n import translate
+try:
+    from Products.generator import i18n
+except ImportError:
+    from Products.Archetypes.generator import i18n
 
 from config import RELATIONS_LIBRARY
 import processor

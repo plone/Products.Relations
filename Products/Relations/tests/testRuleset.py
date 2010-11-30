@@ -4,8 +4,6 @@ if __name__ == '__main__':
 
 import transaction
 
-from zope.interface import implements
-
 from Products.PloneTestCase import PloneTestCase
     
 from OFS.SimpleItem import SimpleItem
@@ -182,15 +180,15 @@ class TestLibrary(PloneTestCase.PloneTestCase):
 # A dummy component that implements all interfaces and stores argument values
 # to its methods inside self.calls, a dict that's keyed by methodnames.
 class DummyComponent(SimpleItem, rulesetmodule.RuleBase):
-    implements(interfaces.IVocabularyProvider,
-                  interfaces.IPrimaryImplicator,
-                  interfaces.IImplicator,
-                  interfaces.IValidator,
-                  interfaces.IFinalizer,
-                  interfaces.IReferenceActionProvider,
-                  interfaces.IReferenceLayerProvider,
-                  interfaces.IReferenceLayer, # not a component interface
-                  )
+    __implements__ = (interfaces.IVocabularyProvider,
+                      interfaces.IPrimaryImplicator,
+                      interfaces.IImplicator,
+                      interfaces.IValidator,
+                      interfaces.IFinalizer,
+                      interfaces.IReferenceActionProvider,
+                      interfaces.IReferenceLayerProvider,
+                      interfaces.IReferenceLayer, # not a component interface
+                      )
 
     # These methods will be generated. They don't do anything, just make
     # an entry in self.calls

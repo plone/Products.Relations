@@ -1,5 +1,3 @@
-from zope.interface import implements
-
 from Globals import InitializeClass
 from AccessControl import getSecurityManager
 from Products.CMFCore.utils import getToolByName
@@ -35,7 +33,7 @@ class ContentReference(ruleset.RLMWithBrains, PortalFolderBase):
 
     Note that portal objects associated with this reference are identified
     by a reference, not by containment."""
-    implements(IContentReference,)
+    __implements__ = Reference.__implements__ + (IContentReference,)
     
     portal_type = meta_type = "Relation ContentReference"
     
@@ -94,8 +92,9 @@ class ContentReferenceFinalizer(BaseContent, ruleset.RuleBase):
     References that I create conform to this module's
     IContentReference, which derives from
     Archetypes.interfaces.referenceengine.IContentReference."""
-    implements(interfaces.IPrimaryImplicator, interfaces.IFinalizer,
-                      interfaces.IReferenceActionProvider)
+    __implements__ = (interfaces.IPrimaryImplicator, interfaces.IFinalizer,
+                      interfaces.IReferenceActionProvider) + \
+                     BaseContent.__implements__
 
     def connect(self, source, target, metadata=None):
         impl = ruleset.DefaultPrimaryImplicator(self.getRuleset())
@@ -214,4 +213,4 @@ class ContentReferenceFinalizer(BaseContent, ruleset.RuleBase):
         return DisplayList(
             [(pt, pt) for pt in utils.getReferenceableTypes(self)])
 
-registerType(ContentReferenceFinalizer, PROJECTNAME)
+registerType(ContentReferenceFinalizer)

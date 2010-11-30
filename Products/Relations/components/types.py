@@ -1,5 +1,4 @@
 """Components that validate against types and interfaces."""
-from zope.interface import implements
 
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.public import *
@@ -11,7 +10,8 @@ from Products.Relations.schema import BaseSchemaWithInvisibleId
 class PortalTypeConstraint(BaseContent, ruleset.RuleBase):
     """A validator and vocabulary provider, restricting sources and targets
     by portal type."""
-    implements(interfaces.IVocabularyProvider, interfaces.IValidator)
+    __implements__ = (interfaces.IVocabularyProvider, interfaces.IValidator) +\
+                     BaseContent.__implements__
 
     content_icon = 'portaltypeconstraint_icon.gif'
 
@@ -86,7 +86,7 @@ class PortalTypeConstraint(BaseContent, ruleset.RuleBase):
         return DisplayList(
             [(pt, pt) for pt in utils.getReferenceableTypes(self)])
 
-registerType(PortalTypeConstraint, PROJECTNAME)
+registerType(PortalTypeConstraint)
 
 class InterfaceConstraint(PortalTypeConstraint):
     """A validator and vocabulary provider, restricting sources and targets
@@ -129,6 +129,6 @@ class InterfaceConstraint(PortalTypeConstraint):
         ))
     archetype_name = portal_type = 'Interface Constraint'
 
-registerType(InterfaceConstraint, PROJECTNAME)
+registerType(InterfaceConstraint)
 
     

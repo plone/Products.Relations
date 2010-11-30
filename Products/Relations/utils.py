@@ -1,6 +1,6 @@
 from AccessControl import ModuleSecurityInfo
 from Acquisition import aq_base
-from zope.interface import implements
+from Interface import Implements
 from OFS.CopySupport import CopySource
 
 from Products.CMFCore.utils import getToolByName
@@ -103,7 +103,7 @@ def getPortalTypesByInterfaces(context, allowedIfaces):
     tool = getToolByName(context, 'archetype_tool')
     for data in tool.listRegisteredTypes():
         klass = data['klass']
-        klass.implements(kifaces)
+        kifaces = klass.__implements__
 
             
         # We now flatten the interfaces and get their unqualified names,
@@ -122,7 +122,6 @@ def getPortalTypesByInterfaces(context, allowedIfaces):
             value.append(data['portal_type'])
 
     return value
-
 
 def getReferenceableTypes(context):
     """Return a list of portal type strings, with all types in the

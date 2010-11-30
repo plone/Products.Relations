@@ -1,5 +1,3 @@
-from zope.interface import implements
-
 from AccessControl import ModuleSecurityInfo
 from Acquisition import aq_base
 from Globals import InitializeClass
@@ -20,7 +18,7 @@ class BrainAggregate:
     """Catalog brain kind of object that aggregates metadata from multiple
     catalogs."""
 
-    implements(interfaces.IBrainAggregate)
+    __implements__ = interfaces.IBrainAggregate,
     __allow_access_to_unprotected_subobjects__ = 1
 
     def __init__(self, brain, sources):
@@ -97,7 +95,7 @@ def makeBrainAggrFromBrain(context, brain, catalogs=None):
     return aggr
 
 class ReferenceWithBrains(Reference):
-    implements(interfaces.IReferenceWithBrains)
+    __implements__ = interfaces.IReferenceWithBrains
 
 # These proxy methods all make use of a volatile attribute to store their value
 # The dict maps method names, e.g. 'getSourceBrain', to functions that produce
