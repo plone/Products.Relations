@@ -37,12 +37,14 @@
                Ruleset title
 	     </label>
 
-             <div tal:content="error" i18n:translate="label_relationsadddel_valida_error">Validation error output</div>
+             <div tal:condition="nocall:error">
+               <div i18n:translate="label_relationsadddel_valida_error">Validation error output</div>
+               <div tal:content="error" />
+             </div>
 
              <select multiple="multiple"
                      tal:attributes="name string:${field_id}:list;
-                                     id field_id;
-                                     tabindex tabindex/next">
+                                     id field_id">
                <tal:repeat repeat="item entry/tuples">
 
                  <option tal:define="brain python:item[0];
@@ -64,15 +66,13 @@
           <input class="context"
                  type="submit"
                  name="form.button.Save"
-                 value="Save"
-                 tal:attributes="tabindex tabindex/next" />
+                 value="Save" />
 
           <input class="standalone"
                  type="submit"
                  name="form.button.Cancel"
                  value="Cancel"
-                 i18n:attributes="value label_relationsadddel_cancel;"
-                 tal:attributes="tabindex tabindex/next" />
+                 i18n:attributes="value label_relationsadddel_cancel;" />
         </div>
 
         <input type="hidden" name="all_fields:list" value=""
