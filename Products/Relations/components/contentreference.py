@@ -57,7 +57,11 @@ class ContentReference(ruleset.RLMWithBrains, PortalFolderBase):
     def _catalogRefs(self, aq, uc=None, rc=None):
         ruleset.RLMWithBrains._catalogRefs(self,aq,uc,rc)
         
-        for name in inf_range():
+        # Use the PortalFolderBase implementation to avoid the false
+        # result from a bogus inheritence of SimpleItem
+        names = PortalFolderBase.objectIds(self)
+        
+        for name in names:
             if not shasattr(self, name):
                 break
 

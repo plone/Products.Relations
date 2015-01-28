@@ -1,3 +1,8 @@
+2015-01-28  Matthew Wilkes (matt at matthewwilkes.name)
+
+    Fix bug where if a shared object was renamed the relation
+    no longer delegated reindexing to it.
+
 2010-10-11  Max Burgess (netropic at u dot washington dot edu)
 
     Removed test for unsupported Relations action tab.
